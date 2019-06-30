@@ -1,0 +1,28 @@
+{
+  "name": "agenda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": {
+    "name": "Gabriel Araujo",
+    "email": "gabriiel66@gmail.com",
+    "url": "https://ogabrielaraujo.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fullcalendar/webpack-example.git"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.0",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}

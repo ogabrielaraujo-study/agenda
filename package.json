@@ -1,0 +1,42 @@
+{
+  "name": "agenda",
+  "version": "1.0.0",
+  "description": "",
+  "author": {
+    "name": "Gabriel Araujo",
+    "email": "gabriiel66@gmail.com",
+    "url": "https://ogabrielaraujo.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fullcalendar/webpack-example.git"
+  },
+  "main": "dist/index.js",
+  "dependencies": {
+    "@fullcalendar/bootstrap": "^4.2.0",
+    "@fullcalendar/core": "^4.0.0",
+    "@fullcalendar/daygrid": "^4.0.0",
+    "@fullcalendar/interaction": "^4.0.0",
+    "@fullcalendar/list": "^4.0.0",
+    "@fullcalendar/moment": "^4.2.0",
+    "@fullcalendar/rrule": "^4.2.0",
+    "@fullcalendar/timegrid": "^4.0.0",
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.4.1",
+    "moment": "^2.24.0",
+    "rrule": "^2.6.2",
+    "socket.io-client": "^2.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  },
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "clean": "rm -rf dist"
+  },
+  "license": "MIT"
+}
