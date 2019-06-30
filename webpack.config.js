@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     filename: 'index.js',
-    path: path.join(__dirname, 'dist')
+    path: path.join(__dirname, 'assets')
   },
   devtool: 'sourcemap'
 };
