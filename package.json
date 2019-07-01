@@ -37,7 +37,7 @@
     "webpack-cli": "^3.2.1"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.js && node api/src/index.js",
     "dev": "webpack-dev-server",
     "build": "webpack",
     "watch": "webpack --watch",
