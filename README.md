@@ -1,10 +1,12 @@
 # Agenda
+
 Agenda - Realtime com NodeJs e MongoDB
 
 ![Agenda Preview](https://i.imgur.com/7epG9Nx.gif)
 
 ### Tecnologias
 - [x] [NodeJs](https://nodejs.org/en/)
+- [x] [ReactJs](https://pt-br.reactjs.org/)
 - [x] [Mongodb](https://www.mongodb.com/)
 - [x] [Axios](https://github.com/axios/axios)
 - [x] [socket.io](https://github.com/socketio/socket.io)
@@ -12,14 +14,17 @@ Agenda - Realtime com NodeJs e MongoDB
 - [x] [FullCalendar](https://github.com/fullcalendar/fullcalendar)
 
 ### Tutorial
+
 ##### Front-end
+
 ```
 yarn install
-yarn run build || yarn run watch
+yarn start
 ```
 
 ##### API
+
 ```
 yarn install
-yarn dev
+yarn start
 ```

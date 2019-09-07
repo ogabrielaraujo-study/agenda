@@ -1,47 +1,53 @@
 {
   "name": "agenda",
   "version": "1.0.0",
-  "description": "",
+  "main": "src/index.js",
+  "license": "MIT",
   "author": {
     "name": "Gabriel Araujo",
     "email": "gabriiel66@gmail.com",
-    "url": "https://ogabrielaraujo.com.br"
+    "url": "http://ogabrielaraujo.com.br"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ogabrielaraujo/agenda.git"
   },
-  "main": "dist/index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
-    "@fullcalendar/bootstrap": "^4.2.0",
-    "@fullcalendar/core": "^4.0.0",
-    "@fullcalendar/daygrid": "^4.0.0",
-    "@fullcalendar/interaction": "^4.0.0",
-    "@fullcalendar/list": "^4.0.0",
-    "@fullcalendar/moment": "^4.2.0",
-    "@fullcalendar/rrule": "^4.2.0",
-    "@fullcalendar/timegrid": "^4.0.0",
+    "@fullcalendar/bootstrap": "^4.3.0",
+    "@fullcalendar/core": "^4.3.1",
+    "@fullcalendar/daygrid": "^4.3.0",
+    "@fullcalendar/interaction": "^4.3.0",
+    "@fullcalendar/moment": "^4.3.0",
+    "@fullcalendar/react": "^4.3.0",
+    "@fullcalendar/timegrid": "^4.3.0",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
-    "express": "^4.17.1",
-    "font-awesome": "^4.7.0",
-    "jquery": "^3.4.1",
-    "moment": "^2.24.0",
-    "popper.js": "^1.15.0",
-    "rrule": "^2.6.2",
+    "node-sass": "^4.12.0",
+    "react": "^16.9.0",
+    "react-bootstrap": "^1.0.0-beta.12",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.1",
     "socket.io-client": "^2.2.0"
   },
-  "devDependencies": {
-    "webpack-dev-server": "^3.7.2",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "scripts": {
-    "start": "node index.js",
-    "dev": "webpack-dev-server",
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "clean": "rm -rf dist"
-  },
-  "license": "MIT"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

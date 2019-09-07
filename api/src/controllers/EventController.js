@@ -1,77 +1,63 @@
-const Event = require('../models/Event');
+import Event from '../models/Event'
 
-module.exports = {
-	async index(req, res) {
-		const events = await Event.find().sort('-createdAt');
+class EventController {
+  async index(req, res) {
+    const events = await Event.find().sort('-createdAt')
 
-		return res.json(events);
-	},
+    return res.json(events)
+  }
 
-	async store(req, res) {
-		const { title, start, end, className } = req.body;
+  async store(req, res) {
+    const { title, start, end, className } = req.body
 
-		const event = await Event.create({
-			title,
-			start,
-			end,
-			className
-		});
+    const event = await Event.create({
+      title,
+      start,
+      end,
+      className,
+    })
 
-		req.io.emit('createEvent', event);
+    req.io.emit('createEvent', event)
 
-		return res.json(event);
-	},
+    return res.json(event)
+  }
 
-	async update(req, res) {
-		const { title, start, end, className } = req.body;
+  async update(req, res) {
+    const { title, start, end, className } = req.body
 
-		const event = Event.findById(req.params.eventId);
-		event.then((event) => {
+    const event = await Event.findById(req.params.eventId)
 
-			if (!event) {
-				return res.json('Not found');
-			}
+    if (!event) {
+      return res.json('Not found')
+    }
 
-			Object.keys(req.body).map(function(key, index) {
-				event[key] = req.body[key];
-			});
+    event.title = title
+    event.start = start
+    event.end = end
+    event.className = className
 
-			// save
-			return event.save();
-		})
-			.then((event) => {
-				req.io.emit('updateEvent', event);
+    // save
+    event.save()
 
-				res.json(event);
-			})
-			.catch((err) => {
-				// send the error to the error handler
-				res.json('Error: ' + err);
-			});
-	},
+    // socket
+    req.io.emit('updateEvent', event)
 
-	async delete(req, res) {
-		const event = Event.findById(req.params.eventId);
+    return res.json(event)
+  }
 
-		console.log(event);
+  async delete(req, res) {
+    const event = await Event.findById(req.params.eventId)
 
-		event.then((event) => {
+    if (!event) {
+      return res.json('Not found')
+    }
 
-			// resource not found, let's throw an error
-			if (!event) {
-				return res.json('Not found');
-			}
+    event.remove()
 
-			return event.remove();
-		})
-			.then((event) => {
-				req.io.emit('deleteEvent', event);
+    req.io.emit('deleteEvent', event)
 
-				res.json(event);
-			})
-			.catch((err) => {
-				// send the error to the error handler
-				res.json('Error: ' + err);
-			})
-	},
-};
+    return res.json({ status: 'deleted' })
+  }
+}
+
+export default new EventController()

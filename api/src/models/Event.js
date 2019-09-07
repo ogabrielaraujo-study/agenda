@@ -1,15 +1,18 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
-const EventSchema = new mongoose.Schema({
-	title: String,
-	start: String,
-	end: String,
-	className: {
-		type: String,
-		default: 'btn-primary',
-	}
-}, {
-	timestamps: true,
-});
+const EventSchema = new mongoose.Schema(
+  {
+    title: String,
+    start: String,
+    end: String,
+    className: {
+      type: String,
+      default: 'btn-primary',
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
 
-module.exports = mongoose.model('Event', EventSchema);
+export default mongoose.model('Event', EventSchema)
