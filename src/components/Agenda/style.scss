@@ -1,0 +1,76 @@
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+@import '~@fullcalendar/bootstrap/main.css';
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+body {
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.App {
+  height: calc(100vh - 20px);
+  padding: 10px;
+}
+
+a, button {
+  outline: none !important;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: none;
+  border-radius: 0;
+  border-left: 1px solid #f1f1f1;
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: none;
+  background: #d8d8d8;
+  border-radius: 0;
+}
+
+/* altura da linha */
+.fc-time-grid .fc-slats td {
+  height: 4em;
+}
+
+.fc-today {
+  background: #FFF !important;
+  border: none !important;
+  border-top: 1px solid #ddd !important;
+  font-weight: bold;
+}
+
+.fc-bootstrap .fc-event {
+  box-shadow: 0px 5px 15px rgba(69, 69, 69, 0.15);
+  padding: 4px;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/*.fc-axis {
+  display:none !important;
+}*/
+
+.fc-time-grid .fc-slats .fc-minor td,
+.fc-time-grid .fc-slats td {
+  border-top: 1px solid #f1f1f1;
+}
+
+.table-bordered td,.table-bordered th {
+  border: 1px solid #f1f1f1;
+}
+
+.btn:focus {
+  box-shadow: none !important;
+}
