@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Agenda from './components/Agenda'
+import Main from './components/Main'
 
 export default function App() {
-  return <Agenda />
+  return <Main />
 }
