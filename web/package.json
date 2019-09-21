@@ -17,8 +17,8 @@
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "predeploy": "pm2 del 'agenda_react'",
-    "deploy": "pm2 start npm --name 'agenda_react' -- start"
+    "deploy": "pm2 start npm --name agenda_react -- start",
+    "stop": "pm2 del agenda_react"
   },
   "dependencies": {
     "@fullcalendar/bootstrap": "^4.3.0",
