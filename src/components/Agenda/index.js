@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import api from '../../services/api'
 import io from 'socket.io-client'
+import 'dotenv/config'
 
 import FullCalendar from '@fullcalendar/react'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -15,7 +16,7 @@ export default function App() {
   const calendarRef = useRef()
   const [events, setEvents] = useState()
   const [changed, setChanged] = useState(0)
-  const socket = io('http://localhost:3333')
+  const socket = io(process.env.REACT_APP_API_URL)
 
   useEffect(() => {
     ;(async function loadEvents() {
