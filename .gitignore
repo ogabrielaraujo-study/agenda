@@ -4,6 +4,7 @@ yarn.lock
 package-lock.json
 .env
 /web/build
+tmp
 
 # IDE
 .idea
