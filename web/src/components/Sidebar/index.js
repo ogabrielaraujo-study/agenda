@@ -1,13 +1,11 @@
 import React from 'react'
 
-import Agenda from '../Agenda'
-
 import { Container } from './styles'
 
-export default function Main() {
+export default function Sidebar() {
   return (
-    <Container>
-      <Agenda />
+    <Container id="sidebar">
+      <h3>Agenda</h3>
     </Container>
   )
 }

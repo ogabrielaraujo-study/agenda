@@ -3,6 +3,13 @@ import api from '../../services/api'
 import io from 'socket.io-client'
 import 'dotenv/config'
 
+import 'bootstrap/scss/bootstrap.scss'
+
+// FullCalendar
+import '@fullcalendar/core/main.css'
+import '@fullcalendar/daygrid/main.css'
+import '@fullcalendar/timegrid/main.css'
+import '@fullcalendar/bootstrap/main.css'
 import FullCalendar from '@fullcalendar/react'
 import interactionPlugin from '@fullcalendar/interaction'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -10,12 +17,16 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrapPlugin from '@fullcalendar/bootstrap'
 import brLocale from '@fullcalendar/core/locales/pt-br'
 
-import './style.scss'
+import Account from '../Account'
+import { IoIosAt } from 'react-icons/io'
+
+import { Container } from './styles'
 
 export default function App() {
   const calendarRef = useRef()
   const [events, setEvents] = useState()
   const [changed, setChanged] = useState(0)
+  const [account, setAccount] = useState(false)
   const socket = io(process.env.REACT_APP_API_URL)
 
   useEffect(() => {
@@ -55,8 +66,14 @@ export default function App() {
     setChanged(changed + 1)
   })
 
+  function handlePopupAccount() {
+    setAccount(true)
+  }
+
   return (
-    <div className="App">
+    <Container id="agenda">
+      <Account open={account} />
+
       <FullCalendar
         ref={calendarRef}
         id="fullCalendar"
@@ -80,10 +97,17 @@ export default function App() {
         locale={brLocale}
         themeSystem="bootstrap"
         height="parent"
+        customButtons={{
+          account: {
+            text: localStorage.getItem('user'),
+            click: handlePopupAccount,
+          },
+        }}
         header={{
           left: 'today prev,next',
           center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,timeGridFourDay',
+          right:
+            'dayGridMonth,timeGridWeek,timeGridDay,timeGridFourDay account',
         }}
         titleFormat={{
           year: 'numeric',
@@ -111,6 +135,6 @@ export default function App() {
           prev: 'Voltar',
         }}
       />
-    </div>
+    </Container>
   )
 }
