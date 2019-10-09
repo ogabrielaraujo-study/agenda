@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
-import { IoLogoGoogle, IoLogoGithub } from 'react-icons/io'
 import { Container } from './styles'
+
+import { Link } from 'react-router-dom'
+import { IoLogoGoogle, IoLogoGithub } from 'react-icons/io'
 
 export default function Welcome() {
   return (

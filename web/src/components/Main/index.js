@@ -1,8 +1,8 @@
 import React from 'react'
+import { Container } from './styles'
+import 'bootstrap/scss/bootstrap.scss'
 
 import Agenda from '../Agenda'
-
-import { Container } from './styles'
 
 export default function Main() {
   return (

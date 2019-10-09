@@ -3,8 +3,6 @@ import api from '../../services/api'
 import io from 'socket.io-client'
 import 'dotenv/config'
 
-import 'bootstrap/scss/bootstrap.scss'
-
 // FullCalendar
 import '@fullcalendar/core/main.css'
 import '@fullcalendar/daygrid/main.css'
@@ -17,16 +15,12 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrapPlugin from '@fullcalendar/bootstrap'
 import brLocale from '@fullcalendar/core/locales/pt-br'
 
-import Account from '../Account'
-import { IoIosAt } from 'react-icons/io'
-
 import { Container } from './styles'
 
 export default function App() {
   const calendarRef = useRef()
   const [events, setEvents] = useState()
   const [changed, setChanged] = useState(0)
-  const [account, setAccount] = useState(false)
   const socket = io(process.env.REACT_APP_API_URL)
 
   useEffect(() => {
@@ -66,14 +60,10 @@ export default function App() {
     setChanged(changed + 1)
   })
 
-  function handlePopupAccount() {
-    setAccount(true)
-  }
+  function handlePopupAccount() {}
 
   return (
     <Container id="agenda">
-      <Account open={account} />
-
       <FullCalendar
         ref={calendarRef}
         id="fullCalendar"

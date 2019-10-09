@@ -7,8 +7,6 @@ import Welcome from './components/Welcome'
 import Main from './components/Main'
 import Error from './components/Error'
 
-const account = false
-
 export default function Routes() {
   return (
     <>
