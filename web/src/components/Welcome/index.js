@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from './styles'
 
 import { Link } from 'react-router-dom'
-import { IoLogoGoogle, IoLogoGithub } from 'react-icons/io'
+import { IoLogoGoogle } from 'react-icons/io'
 
 export default function Welcome() {
   return (
@@ -17,13 +17,9 @@ export default function Welcome() {
             iure fuga.
           </p>
           <div className="buttons">
-            <Link to="/agenda">
+            <Link to="/login/google">
               <IoLogoGoogle />
               Login com Google
-            </Link>
-            <Link to="/agenda">
-              <IoLogoGithub />
-              Login com GitHub
             </Link>
           </div>
         </div>
