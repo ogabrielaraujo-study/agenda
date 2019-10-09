@@ -40,4 +40,24 @@ export default createGlobalStyle`
     background: #d8d8d8;
     border-radius: 0;
   }
+
+  /* buttons */
+  #root .btn, .modal .btn {
+    background-color: transparent;
+    color: #3d3dc9;
+    border-color: #3d3dc9;
+    font-size: 14px;
+
+    &:hover,
+    &:focus,
+    &.active,
+    &:active,
+    &.disabled,
+    &:disabled {
+      box-shadow: none !important;
+      background-color: #3d3dc9 !important;
+      border-color: #3d3dc9 !important;
+      color: #fff !important;
+    }
+  }
 `

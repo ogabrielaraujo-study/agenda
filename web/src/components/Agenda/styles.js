@@ -5,25 +5,6 @@ export const Container = styled.div`
   height: calc(100vh - 20px);
   padding: 10px;
 
-  .btn {
-    background-color: transparent;
-    color: #3d3dc9;
-    border-color: #3d3dc9;
-    font-size: 14px;
-
-    &:hover,
-    &:focus,
-    &.active,
-    &:active,
-    &.disabled,
-    &:disabled {
-      box-shadow: none !important;
-      background-color: #3d3dc9 !important;
-      border-color: #3d3dc9 !important;
-      color: #fff !important;
-    }
-  }
-
   /* altura da linha */
   .fc-time-grid .fc-slats td {
     height: 4em;
@@ -76,6 +57,35 @@ export const Container = styled.div`
           margin: 0 auto;
           border: 1px solid #ccc;
         }
+      }
+    }
+  }
+
+  @media (max-width: 990px) {
+    .fc-toolbar {
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .fc-left {
+        order: 2;
+        margin-right: 20px;
+        margin-top: 20px;
+      }
+
+      .fc-center {
+        order: 1;
+        width: 100%;
+        text-align: center;
+
+        h2 {
+          font-weight: 400;
+          font-size: 26px;
+        }
+      }
+
+      .fc-right {
+        order: 3;
+        margin-top: 20px;
       }
     }
   }

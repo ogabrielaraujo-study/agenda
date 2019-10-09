@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { Container } from './styles'
+
 import api from '../../services/api'
 import io from 'socket.io-client'
 import 'dotenv/config'
@@ -15,13 +17,24 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrapPlugin from '@fullcalendar/bootstrap'
 import brLocale from '@fullcalendar/core/locales/pt-br'
 
-import { Container } from './styles'
+import { Modal, Button, Form } from 'react-bootstrap'
 
 export default function App() {
   const calendarRef = useRef()
   const [events, setEvents] = useState()
   const [changed, setChanged] = useState(0)
+  const [show, setShow] = useState(false)
   const socket = io(process.env.REACT_APP_API_URL)
+  let user = localStorage.getItem('user') || ''
+  let email = localStorage.getItem('email') || ''
+
+  useEffect(() => {
+    let calendarApi = calendarRef.current.getApi()
+
+    if (window.innerWidth <= 990) {
+      calendarApi.changeView('timeGridDay')
+    }
+  }, [])
 
   useEffect(() => {
     ;(async function loadEvents() {
@@ -60,10 +73,39 @@ export default function App() {
     setChanged(changed + 1)
   })
 
-  function handlePopupAccount() {}
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
+  function handleLogout() {
+    localStorage.setItem('user', '')
+    localStorage.setItem('email', '')
+    localStorage.setItem('token', '')
+
+    window.location = '/'
+  }
 
   return (
     <Container id="agenda">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{user || 'Perfil'}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group>
+            <Form.Label>Nome</Form.Label>
+            <Form.Control type="text" value={user} disabled />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>E-mail</Form.Label>
+            <Form.Control type="text" value={email} disabled />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleLogout}>Sair</Button>
+        </Modal.Footer>
+      </Modal>
+
       <FullCalendar
         ref={calendarRef}
         id="fullCalendar"
@@ -89,8 +131,8 @@ export default function App() {
         height="parent"
         customButtons={{
           account: {
-            text: localStorage.getItem('user'),
-            click: handlePopupAccount,
+            text: localStorage.getItem('user') || 'Perfil',
+            click: handleShow,
           },
         }}
         header={{
