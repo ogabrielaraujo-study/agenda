@@ -25,15 +25,35 @@ class AuthController {
       }
 
       const user = await User.findOrCreate(whereClause, userDetails)
-
-      console.log(user)
-
       const token = await auth.generate(user)
 
       return token
     } catch (error) {
       return ['Error! Unable to authenticate. Try again later']
     }
+  }
+
+  async loginWithGoogleId({ request, auth }) {
+    const data = request.all()
+
+    const googleUser = {
+      social_id: data.googleId,
+      email: data.email,
+      name: data.name,
+      avatar: data.imageUrl,
+      source: 'google',
+    }
+
+    const whereClause = {
+      social_id: data.googleId,
+      email: googleUser.email,
+      source: 'google',
+    }
+
+    const user = await User.findOrCreate(whereClause, googleUser)
+    const token = await auth.generate(user)
+
+    return token
   }
 }
 

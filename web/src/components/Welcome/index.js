@@ -1,10 +1,29 @@
 import React from 'react'
 import { Container } from './styles'
 
-import { Link } from 'react-router-dom'
+import api from '../../services/api'
+import GoogleLogin from 'react-google-login'
 import { IoLogoGoogle } from 'react-icons/io'
 
 export default function Welcome() {
+  async function responseGoogle(res) {
+    const { googleId, name, email, imageUrl } = res.profileObj
+
+    const loginResponse = await api.post('http://localhost:3335/auth/google', {
+      googleId,
+      name,
+      email,
+      imageUrl,
+    })
+
+    localStorage.setItem('@token', loginResponse.data.token)
+    localStorage.setItem('@name', name)
+    localStorage.setItem('@email', email)
+    localStorage.setItem('@avatar', imageUrl)
+
+    window.location = '/agenda'
+  }
+
   return (
     <Container>
       <div className="container">
@@ -17,10 +36,18 @@ export default function Welcome() {
             iure fuga.
           </p>
           <div className="buttons">
-            <Link to="/login/google">
-              <IoLogoGoogle />
-              Login com Google
-            </Link>
+            <GoogleLogin
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
+              render={renderProps => (
+                <button onClick={renderProps.onClick}>
+                  <IoLogoGoogle />
+                  Login com Google
+                </button>
+              )}
+            />
           </div>
         </div>
 

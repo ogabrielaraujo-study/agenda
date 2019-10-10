@@ -60,4 +60,8 @@ export default createGlobalStyle`
       color: #fff !important;
     }
   }
+
+  button {
+    outline: none !important;
+  }
 `

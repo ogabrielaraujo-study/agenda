@@ -6,9 +6,9 @@ import Agenda from '../Agenda'
 
 export default function Main() {
   function checkLogin() {
-    let token = localStorage.getItem('token')
+    let token = localStorage.getItem('@token')
 
-    if (token === '') {
+    if (token === '' || token == undefined || token == 'undefined') {
       alert('Faça login para visualizar a Agenda.')
       window.location = '/'
     }

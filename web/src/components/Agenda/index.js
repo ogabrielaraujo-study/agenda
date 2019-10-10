@@ -25,8 +25,8 @@ export default function App() {
   const [changed, setChanged] = useState(0)
   const [show, setShow] = useState(false)
   const socket = io(process.env.REACT_APP_API_URL)
-  let user = localStorage.getItem('user') || ''
-  let email = localStorage.getItem('email') || ''
+  let name = localStorage.getItem('@name') || ''
+  let email = localStorage.getItem('@email') || ''
 
   useEffect(() => {
     let calendarApi = calendarRef.current.getApi()
@@ -77,9 +77,10 @@ export default function App() {
   const handleShow = () => setShow(true)
 
   function handleLogout() {
-    localStorage.setItem('user', '')
-    localStorage.setItem('email', '')
-    localStorage.setItem('token', '')
+    localStorage.setItem('@token', '')
+    localStorage.setItem('@name', '')
+    localStorage.setItem('@email', '')
+    localStorage.setItem('@avatar', '')
 
     window.location = '/'
   }
@@ -88,12 +89,12 @@ export default function App() {
     <Container id="agenda">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{user || 'Perfil'}</Modal.Title>
+          <Modal.Title>Meu Perfil</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
             <Form.Label>Nome</Form.Label>
-            <Form.Control type="text" value={user} disabled />
+            <Form.Control type="text" value={name} disabled />
           </Form.Group>
 
           <Form.Group>
@@ -131,7 +132,7 @@ export default function App() {
         height="parent"
         customButtons={{
           account: {
-            text: localStorage.getItem('user') || 'Perfil',
+            text: name || 'Perfil',
             click: handleShow,
           },
         }}

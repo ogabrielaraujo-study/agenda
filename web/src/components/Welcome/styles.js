@@ -28,7 +28,8 @@ export const Container = styled.div`
     }
 
     .buttons {
-      a {
+      a,
+      button {
         display: inline-flex;
         border: 2px solid #3d3dc9;
         background: #3d3dc9;
