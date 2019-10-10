@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Container } from './styles'
 
 import api from '../../services/api'
-import io from 'socket.io-client'
+//import io from 'socket.io-client'
 import 'dotenv/config'
 
 // FullCalendar
@@ -24,9 +24,9 @@ export default function App() {
   const [events, setEvents] = useState()
   const [changed, setChanged] = useState(0)
   const [show, setShow] = useState(false)
-  const socket = io(process.env.REACT_APP_API_URL)
   let name = localStorage.getItem('@name') || ''
   let email = localStorage.getItem('@email') || ''
+  //const socket = io(process.env.REACT_APP_API_URL)
 
   useEffect(() => {
     let calendarApi = calendarRef.current.getApi()
@@ -55,23 +55,27 @@ export default function App() {
     setEvents([...events, response.data])
   }
 
-  async function updateEvent(event) {
-    const id = event.event.extendedProps._id
+  async function updateEvent(current) {
+    const id = current.event.id
 
     await api.put('/events/' + id, {
-      start: event.event.start,
-      end: event.event.end,
-      title: event.event._def.title,
+      start: current.event.start,
+      end: current.event.end,
+      title: current.event.title,
     })
   }
 
-  socket.on('createEvent', createdEvent => {
-    setChanged(changed + 1)
-  })
+  function handleEventClick(clicked) {
+    console.log(clicked)
+  }
 
-  socket.on('updateEvent', updatedEvent => {
+  /* socket.on('createEvent', createdEvent => {
     setChanged(changed + 1)
-  })
+  }) */
+
+  /* socket.on('updateEvent', updatedEvent => {
+    setChanged(changed + 1)
+  }) */
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -87,6 +91,7 @@ export default function App() {
 
   return (
     <Container id="agenda">
+      {/* Perfil */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Meu Perfil</Modal.Title>
@@ -107,6 +112,7 @@ export default function App() {
         </Modal.Footer>
       </Modal>
 
+      {/* Agenda */}
       <FullCalendar
         ref={calendarRef}
         id="fullCalendar"
@@ -167,6 +173,7 @@ export default function App() {
           next: 'Próximo',
           prev: 'Voltar',
         }}
+        eventClick={handleEventClick}
       />
     </Container>
   )

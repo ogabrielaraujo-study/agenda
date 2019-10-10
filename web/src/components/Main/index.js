@@ -8,7 +8,7 @@ export default function Main() {
   function checkLogin() {
     let token = localStorage.getItem('@token')
 
-    if (token === '' || token == undefined || token == 'undefined') {
+    if (token === '' || token === undefined || typeof token === 'undefined') {
       alert('Faça login para visualizar a Agenda.')
       window.location = '/'
     }

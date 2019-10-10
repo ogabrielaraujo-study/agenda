@@ -6,6 +6,13 @@ import GoogleLogin from 'react-google-login'
 import { IoLogoGoogle } from 'react-icons/io'
 
 export default function Welcome() {
+  function beforeResponse() {
+    localStorage.setItem('@token', '')
+    localStorage.setItem('@name', '')
+    localStorage.setItem('@email', '')
+    localStorage.setItem('@avatar', '')
+  }
+
   async function responseGoogle(res) {
     const { googleId, name, email, imageUrl } = res.profileObj
 
@@ -38,6 +45,7 @@ export default function Welcome() {
           <div className="buttons">
             <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+              onRequest={beforeResponse}
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               cookiePolicy={'single_host_origin'}

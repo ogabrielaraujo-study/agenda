@@ -25,14 +25,14 @@ export const Container = styled.div`
     font-size: 14px;
   }
 
-  .fc-axis {
+  /* .fc-axis {
     display: none !important;
-  }
+  } */
 
-  .fc-time-grid .fc-slats .fc-minor td,
+  /* .fc-time-grid .fc-slats .fc-minor td,
   .fc-time-grid .fc-slats td {
     border-top: 1px solid #f1f1f1;
-  }
+  } */
 
   .table-bordered td,
   .table-bordered th {
