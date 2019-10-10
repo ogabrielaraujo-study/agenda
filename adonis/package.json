@@ -1,22 +1,23 @@
 {
   "name": "api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "adonis-version": "4.1.0",
   "description": "Agenda API",
   "main": "index.js",
-  "scripts": {
-    "start": "node server.js",
-    "test": "node ace test",
-    "dev": "adonis serve --dev",
-    "migrate": "adonis migration:run"
-  },
-  "keywords": [
-    "adonisjs",
-    "adonis-app"
-  ],
-  "author": "",
   "license": "MIT",
-  "private": true,
+  "author": {
+    "name": "Gabriel Araujo",
+    "email": "gabriiel66@gmail.com",
+    "url": "http://ogabrielaraujo.com.br"
+  },
+  "scripts": {
+    "start": "yarn build && node server.js",
+    "dev": "adonis serve --dev",
+    "test": "node ace test",
+    "build": "adonis migration:run",
+    "up": "pm2 start server.js --name agenda_node",
+    "down": "pm2 del agenda_node"
+  },
   "dependencies": {
     "@adonisjs/ace": "^5.0.8",
     "@adonisjs/ally": "^2.1.3",
