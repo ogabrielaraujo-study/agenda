@@ -1,20 +1,25 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Container } from './styles'
 import 'bootstrap/scss/bootstrap.scss'
+
+import { Context } from '../../store/context'
+import history from '../../services/history'
 
 import Agenda from '../Agenda'
 
 export default function Main() {
-  function checkLogin() {
-    let token = localStorage.getItem('@token')
+  const [session, setSession] = useContext(Context)
 
-    if (token === '' || token === undefined || typeof token === 'undefined') {
+  useEffect(() => {
+    if (
+      session.token === '' ||
+      session.token === undefined ||
+      session.token === null
+    ) {
       alert('Faça login para visualizar a Agenda.')
-      window.location = '/'
+      history.push('/')
     }
-  }
-
-  checkLogin()
+  }, [])
 
   return (
     <Container>

@@ -1,17 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Container } from './styles'
+
+import { Context } from '../../store/context'
+import history from '../../services/history'
 
 import api from '../../services/api'
 import GoogleLogin from 'react-google-login'
 import { IoLogoGoogle } from 'react-icons/io'
 
 export default function Welcome() {
-  function beforeResponse() {
-    localStorage.setItem('@token', '')
-    localStorage.setItem('@name', '')
-    localStorage.setItem('@email', '')
-    localStorage.setItem('@avatar', '')
-  }
+  const [session, setSession] = useContext(Context)
 
   async function responseGoogle(res) {
     const { googleId, name, email, imageUrl } = res.profileObj
@@ -23,12 +21,15 @@ export default function Welcome() {
       imageUrl,
     })
 
-    localStorage.setItem('@token', loginResponse.data.token)
-    localStorage.setItem('@name', name)
-    localStorage.setItem('@email', email)
-    localStorage.setItem('@avatar', imageUrl)
+    await setSession({
+      token: loginResponse.data.token,
+      name,
+      email,
+      avatar: imageUrl,
+    })
 
-    window.location = '/agenda'
+    //window.location = '/agenda'
+    history.push('/agenda')
   }
 
   return (
@@ -45,7 +46,6 @@ export default function Welcome() {
           <div className="buttons">
             <GoogleLogin
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-              onRequest={beforeResponse}
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               cookiePolicy={'single_host_origin'}

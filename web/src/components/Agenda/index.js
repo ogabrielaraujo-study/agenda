@@ -1,7 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { Container } from './styles'
 
+import { Context } from '../../store/context'
 import api from '../../services/api'
+import history from '../../services/history'
 //import io from 'socket.io-client'
 import 'dotenv/config'
 
@@ -17,15 +19,17 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrapPlugin from '@fullcalendar/bootstrap'
 import brLocale from '@fullcalendar/core/locales/pt-br'
 
+//import Popup from '../Popup'
 import { Modal, Button, Form } from 'react-bootstrap'
 
 export default function App() {
+  const [session, setSession, option, setOption] = useContext(Context)
   const calendarRef = useRef()
   const [events, setEvents] = useState()
   const [changed, setChanged] = useState(0)
-  const [show, setShow] = useState(false)
-  let name = localStorage.getItem('@name') || ''
-  let email = localStorage.getItem('@email') || ''
+  const [eventName, setEventName] = useState('')
+  const [currentEvent, setCurrentEvent] = useState(null)
+
   //const socket = io(process.env.REACT_APP_API_URL)
 
   useEffect(() => {
@@ -44,15 +48,38 @@ export default function App() {
     })()
   }, [changed])
 
-  async function createEvent(event) {
-    const name = prompt('Enter name')
+  function createEvent(event) {
+    setPopup(true)
+    setCurrentEvent(event)
+  }
 
-    const response = await api.post('/events', {
-      title: name,
-      start: event.dateStr,
-    })
+  async function handleCreateEvent(e) {
+    e.preventDefault()
 
-    setEvents([...events, response.data])
+    if (eventName.length < 3) {
+      alert('Evento deve ter pelo menos 3 caracteres')
+      return
+    }
+
+    if (currentEvent.event == undefined) {
+      const response = await api.post('/events', {
+        title: eventName,
+        start: currentEvent.dateStr,
+      })
+
+      setEvents([...events, response.data])
+    } else {
+      const response = await api.put(`/events/${currentEvent.event.id}`, {
+        title: eventName,
+        start: currentEvent.dateStr,
+      })
+
+      console.log('refresh')
+    }
+
+    setPopup(false)
+    setEventName('')
+    setCurrentEvent(null)
   }
 
   async function updateEvent(current) {
@@ -65,8 +92,10 @@ export default function App() {
     })
   }
 
-  function handleEventClick(clicked) {
-    console.log(clicked)
+  function handleEventClick(eventClicked) {
+    setPopup(true)
+    setCurrentEvent(eventClicked)
+    setEventName(eventClicked.event.title)
   }
 
   /* socket.on('createEvent', createdEvent => {
@@ -77,39 +106,66 @@ export default function App() {
     setChanged(changed + 1)
   }) */
 
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const [profile, setProfile] = useState(false)
+  const handleShowProfile = () => setProfile(true)
+  const handleCloseProfile = () => setProfile(false)
 
-  function handleLogout() {
-    localStorage.setItem('@token', '')
-    localStorage.setItem('@name', '')
-    localStorage.setItem('@email', '')
-    localStorage.setItem('@avatar', '')
+  const [popup, setPopup] = useState(false)
+  const handleClosePopup = () => {
+    setPopup(false)
+    setEventName('')
+  }
 
-    window.location = '/'
+  async function handleLogout() {
+    setSession({})
+
+    history.push('/')
   }
 
   return (
     <Container id="agenda">
       {/* Perfil */}
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={profile} onHide={handleCloseProfile}>
         <Modal.Header closeButton>
           <Modal.Title>Meu Perfil</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
             <Form.Label>Nome</Form.Label>
-            <Form.Control type="text" value={name} disabled />
+            <Form.Control type="text" value={session.name} disabled />
           </Form.Group>
 
           <Form.Group>
             <Form.Label>E-mail</Form.Label>
-            <Form.Control type="text" value={email} disabled />
+            <Form.Control type="text" value={session.email} disabled />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={handleLogout}>Sair</Button>
         </Modal.Footer>
+      </Modal>
+
+      {/* Evento */}
+      <Modal show={popup} onHide={handleClosePopup}>
+        <Form onSubmit={handleCreateEvent}>
+          <Modal.Header closeButton>
+            <Modal.Title>Evento</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Group>
+              <Form.Label>Título</Form.Label>
+              <Form.Control
+                type="text"
+                value={eventName}
+                onChange={e => setEventName(e.target.value)}
+                autoFocus
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={handleCreateEvent}>Salvar</Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
 
       {/* Agenda */}
@@ -138,8 +194,8 @@ export default function App() {
         height="parent"
         customButtons={{
           account: {
-            text: name || 'Perfil',
-            click: handleShow,
+            text: session.name || 'Perfil',
+            click: handleShowProfile,
           },
         }}
         header={{
