@@ -14,12 +14,15 @@ export default function Welcome() {
   async function responseGoogle(res) {
     const { googleId, name, email, imageUrl } = res.profileObj
 
-    const loginResponse = await api.post('http://localhost:3335/auth/google', {
-      googleId,
-      name,
-      email,
-      imageUrl,
-    })
+    const loginResponse = await api.post(
+      `${process.env.REACT_APP_API_URL}/auth/google`,
+      {
+        googleId,
+        name,
+        email,
+        imageUrl,
+      }
+    )
 
     await setSession({
       token: loginResponse.data.token,
@@ -28,7 +31,6 @@ export default function Welcome() {
       avatar: imageUrl,
     })
 
-    //window.location = '/agenda'
     history.push('/agenda')
   }
 

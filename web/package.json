@@ -13,7 +13,7 @@
     "url": "https://github.com/ogabrielaraujo/agenda.git"
   },
   "scripts": {
-    "start": "yarn build && serve -l $(grep PORT .env | cut -d '=' -f2) -s build",
+    "start": "yarn build && react-scripts start",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
