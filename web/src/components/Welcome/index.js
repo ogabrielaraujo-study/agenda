@@ -7,6 +7,7 @@ import history from '../../services/history'
 import api from '../../services/api'
 import GoogleLogin from 'react-google-login'
 import { IoLogoGoogle } from 'react-icons/io'
+import { FiGithub } from 'react-icons/fi'
 import mockup from './mockup.png'
 
 export default function Welcome() {
@@ -63,6 +64,10 @@ export default function Welcome() {
                 </button>
               )}
             />
+            <a href="https://github.com/ogabrielaraujo/agenda" target="_blank">
+              <FiGithub />
+              Repositório no GitHub
+            </a>
           </div>
         </div>
 

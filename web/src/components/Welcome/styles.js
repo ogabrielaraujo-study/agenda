@@ -28,6 +28,8 @@ export const Container = styled.div`
     }
 
     .buttons {
+      display: flex;
+
       a,
       button {
         display: inline-flex;
