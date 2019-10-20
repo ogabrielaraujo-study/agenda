@@ -1,16 +1,20 @@
 # Agenda
-Agenda - Realtime com NodeJs e MongoDB
 
-![Agenda Preview](https://i.imgur.com/7epG9Nx.gif)
+Agenda - Realtime com NodeJs, ReactJS e Postgres
+
+[Visualizar Online (Demo)](https://agenda.ogabrielaraujo.com.br)
+
+![Agenda Preview](https://i.imgur.com/jG6XMZK.gif)
 
 ### Tecnologias
+
 - [x] [NodeJs](https://nodejs.org/en/)
 - [x] [ReactJs](https://pt-br.reactjs.org/)
-- [x] [Mongodb](https://www.mongodb.com/)
+- [x] [Postgres](https://github.com/postgres/postgres)
 - [x] [Axios](https://github.com/axios/axios)
-- [x] [socket.io](https://github.com/socketio/socket.io)
-- [x] [express](https://github.com/expressjs/express)
+- [x] [adonis](https://adonisjs.com/)
 - [x] [FullCalendar](https://github.com/fullcalendar/fullcalendar)
+- [ ] [socket.io](https://github.com/socketio/socket.io)
 
 ### Como usar?
 
