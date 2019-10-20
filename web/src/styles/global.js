@@ -86,4 +86,19 @@ export default createGlobalStyle`
   button {
     outline: none !important;
   }
+
+  /* toastify */
+  #root .Toastify__toast {
+    border-radius: 8px;
+    font: 14px 'Roboto', sans-serif;
+    padding: 8px 12px;
+
+    &.Toastify__toast--success {
+      background: #0eb942;
+    }
+
+    &.Toastify__toast--error {
+      background: #ee3f3f;
+    }
+  }
 `

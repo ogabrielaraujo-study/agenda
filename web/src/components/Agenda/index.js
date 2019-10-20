@@ -19,7 +19,6 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrapPlugin from '@fullcalendar/bootstrap'
 import brLocale from '@fullcalendar/core/locales/pt-br'
 
-//import Popup from '../Popup'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { FiTrash2 } from 'react-icons/fi'
 import { toast } from 'react-toastify'
