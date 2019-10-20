@@ -2,7 +2,7 @@
 
 Agenda - Realtime com NodeJs, ReactJS e Postgres
 
-[Visualizar Online (Demo)](https://agenda.ogabrielaraujo.com.br)
+[ACESSAR DEMO](https://agenda.ogabrielaraujo.com.br)
 
 ![Agenda Preview](https://i.imgur.com/jG6XMZK.gif)
 
