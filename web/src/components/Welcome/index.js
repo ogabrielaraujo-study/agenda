@@ -7,6 +7,7 @@ import history from '../../services/history'
 import api from '../../services/api'
 import GoogleLogin from 'react-google-login'
 import { IoLogoGoogle } from 'react-icons/io'
+import mockup from './mockup.png'
 
 export default function Welcome() {
   const [session, setSession] = useContext(Context)
@@ -40,10 +41,8 @@ export default function Welcome() {
         <div className="content">
           <h1>Agenda</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi quidem
-            facere voluptatem non porro eligendi. Nam voluptatem officiis fugiat
-            provident libero labore, ullam eius ipsa dolorum, saepe sapiente
-            iure fuga.
+            Organize seu dia a dia e nunca mais esqueça seus compromissos. Entre
+            e aumente sua produtividade agora mesmo!
           </p>
           <div className="buttons">
             <GoogleLogin
@@ -62,7 +61,7 @@ export default function Welcome() {
         </div>
 
         <div className="preview">
-          <img src="http://placehold.it/600x600" alt="Agenda" />
+          <img src={mockup} alt="Agenda" />
         </div>
       </div>
     </Container>
