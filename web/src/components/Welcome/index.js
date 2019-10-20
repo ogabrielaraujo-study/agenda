@@ -25,12 +25,18 @@ export default function Welcome() {
       }
     )
 
+    const token = loginResponse.data.token
+
     await setSession({
-      token: loginResponse.data.token,
+      token,
       name,
       email,
       avatar: imageUrl,
     })
+
+    if (token) {
+      api.defaults.headers.Authorization = `Bearer ${token}`
+    }
 
     history.push('/agenda')
   }

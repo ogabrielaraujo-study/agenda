@@ -1,19 +1,17 @@
 import axios from 'axios'
 import 'dotenv/config'
 
-let api = null
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+})
 
-if (localStorage.getItem('@session') !== null) {
-  const token = JSON.parse(localStorage.getItem('@session')).token
+let token =
+  localStorage.getItem('@session') !== null
+    ? JSON.parse(localStorage.getItem('@session')).token
+    : null
 
-  api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-    headers: { Authorization: 'Bearer ' + token },
-  })
-} else {
-  api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-  })
+if (token) {
+  api.defaults.headers.Authorization = `Bearer ${token}`
 }
 
 export default api
