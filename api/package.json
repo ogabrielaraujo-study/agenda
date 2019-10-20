@@ -11,11 +11,12 @@
     "url": "http://ogabrielaraujo.com.br"
   },
   "scripts": {
-    "start": "yarn build && node server.js",
+    "start": "node server.js",
     "dev": "adonis serve --dev",
     "test": "node ace test",
     "build": "adonis migration:run",
     "up": "pm2 start server.js --name agenda_node",
+    "up:dev": "pm2 start server.js --name agenda_node --watch",
     "down": "pm2 del agenda_node"
   },
   "dependencies": {

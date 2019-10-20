@@ -13,11 +13,10 @@
     "url": "https://github.com/ogabrielaraujo/agenda.git"
   },
   "scripts": {
-    "start": "yarn build && react-scripts start",
-    "dev": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "up": "pm2 start npm --name agenda_react -- start",
+    "up": "pm2 start node_modules/react-scripts/scripts/start.js --name agenda_react",
     "down": "pm2 del agenda_react"
   },
   "dependencies": {
