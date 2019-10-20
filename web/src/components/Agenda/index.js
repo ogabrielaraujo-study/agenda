@@ -21,75 +21,66 @@ import brLocale from '@fullcalendar/core/locales/pt-br'
 
 //import Popup from '../Popup'
 import { Modal, Button, Form } from 'react-bootstrap'
+import { FiTrash2 } from 'react-icons/fi'
+import { toast } from 'react-toastify'
+import { getEvents, createEvent, updateEvent, deleteEvent } from './events'
 
 export default function App() {
-  const [session, setSession, option, setOption] = useContext(Context)
+  const [session, setSession] = useContext(Context)
   const calendarRef = useRef()
-  const [events, setEvents] = useState()
-  const [changed, setChanged] = useState(0)
   const [eventName, setEventName] = useState('')
   const [currentEvent, setCurrentEvent] = useState(null)
-
   //const socket = io(process.env.REACT_APP_API_URL)
 
   useEffect(() => {
-    let calendarApi = calendarRef.current.getApi()
+    const calendarApi = calendarRef.current.getApi()
 
     if (window.innerWidth <= 990) {
       calendarApi.changeView('timeGridDay')
     }
   }, [])
 
-  useEffect(() => {
-    ;(async function loadEvents() {
-      const response = await api.get('/events')
-
-      setEvents(response.data)
-    })()
-  }, [changed])
-
-  function createEvent(event) {
+  function handleDateClick(event) {
     setPopup(true)
     setCurrentEvent(event)
   }
 
-  async function handleCreateEvent(e) {
+  async function handlePopupEvent(e) {
     e.preventDefault()
 
-    if (eventName.length < 3) {
-      alert('Evento deve ter pelo menos 3 caracteres')
+    if (
+      currentEvent.event !== undefined &&
+      currentEvent.event.title === eventName
+    ) {
+      setPopup(false)
+      setEventName('')
+      setCurrentEvent(null)
       return
     }
 
-    if (currentEvent.event == undefined) {
-      const response = await api.post('/events', {
-        title: eventName,
-        start: currentEvent.dateStr,
-      })
-
-      setEvents([...events, response.data])
-    } else {
-      const response = await api.put(`/events/${currentEvent.event.id}`, {
-        title: eventName,
-        start: currentEvent.dateStr,
-      })
-
-      console.log('refresh')
+    if (eventName.length < 3) {
+      toast.error('Evento deve ter pelo menos 3 caracteres')
+      return
     }
 
+    await createEvent(eventName, currentEvent)
+
+    toast.success('Evento foi salvo com sucesso!')
+    calendarRef.current.getApi().refetchEvents()
     setPopup(false)
     setEventName('')
     setCurrentEvent(null)
   }
 
-  async function updateEvent(current) {
-    const id = current.event.id
+  async function handleDeleteEvent(current) {
+    await deleteEvent(current)
 
-    await api.put('/events/' + id, {
-      start: current.event.start,
-      end: current.event.end,
-      title: current.event.title,
-    })
+    calendarRef.current.getApi().refetchEvents()
+    toast.success('Evento deletado com sucesso!')
+
+    setPopup(false)
+    setEventName('')
+    setCurrentEvent(null)
   }
 
   function handleEventClick(eventClicked) {
@@ -146,8 +137,8 @@ export default function App() {
       </Modal>
 
       {/* Evento */}
-      <Modal show={popup} onHide={handleClosePopup}>
-        <Form onSubmit={handleCreateEvent}>
+      <Modal show={popup} onHide={handleClosePopup} centered>
+        <Form onSubmit={handlePopupEvent}>
           <Modal.Header closeButton>
             <Modal.Title>Evento</Modal.Title>
           </Modal.Header>
@@ -163,7 +154,16 @@ export default function App() {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={handleCreateEvent}>Salvar</Button>
+            {currentEvent && currentEvent.event && (
+              <Button
+                variant="danger"
+                className="withIcon"
+                onClick={() => handleDeleteEvent(currentEvent)}
+              >
+                <FiTrash2 size="16" />
+              </Button>
+            )}
+            <Button onClick={handlePopupEvent}>Salvar</Button>
           </Modal.Footer>
         </Form>
       </Modal>
@@ -179,8 +179,8 @@ export default function App() {
           timeGridPlugin,
           bootstrapPlugin,
         ]}
-        dateClick={event => createEvent(event)}
-        events={events}
+        dateClick={event => handleDateClick(event)}
+        events={getEvents}
         eventDrop={event => updateEvent(event)}
         eventResize={event => updateEvent(event)}
         editable={true}

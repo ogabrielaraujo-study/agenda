@@ -68,4 +68,70 @@ export const Container = styled.div`
   .preview {
     margin-left: 70px;
   }
+
+  @media (max-width: 1240px) {
+    height: auto;
+    min-height: 100%;
+
+    .container {
+      min-height: 100%;
+      flex-direction: column;
+      padding: 40px 20px;
+      justify-content: initial;
+
+      .content {
+        text-align: center;
+        order: 2;
+
+        h1 {
+          margin-bottom: 30px;
+          font-size: 42px;
+        }
+
+        p {
+          margin-bottom: 30px;
+        }
+      }
+
+      .preview {
+        order: 1;
+        margin: 0;
+        max-width: 450px;
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      .content {
+        br {
+          display: none;
+        }
+
+        h1 {
+          font-size: 37px;
+        }
+
+        .buttons {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          a,
+          button {
+            text-align: center;
+            justify-content: center;
+            max-width: 300px;
+            width: 100%;
+            margin: 0 0 20px;
+          }
+        }
+      }
+    }
+  }
 `

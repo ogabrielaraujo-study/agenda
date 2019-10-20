@@ -8,7 +8,7 @@ import history from '../../services/history'
 import Agenda from '../Agenda'
 
 export default function Main() {
-  const [session, setSession] = useContext(Context)
+  const [session] = useContext(Context)
 
   useEffect(() => {
     if (
@@ -19,7 +19,7 @@ export default function Main() {
       alert('Faça login para visualizar a Agenda.')
       history.push('/')
     }
-  }, [])
+  }, [session])
 
   return (
     <Container>

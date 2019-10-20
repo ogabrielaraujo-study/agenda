@@ -11,7 +11,7 @@ import { FiGithub } from 'react-icons/fi'
 import mockup from './mockup.png'
 
 export default function Welcome() {
-  const [session, setSession] = useContext(Context)
+  const [, setSession] = useContext(Context)
 
   async function responseGoogle(res) {
     const { googleId, name, email, imageUrl } = res.profileObj
@@ -48,8 +48,9 @@ export default function Welcome() {
         <div className="content">
           <h1>Agenda</h1>
           <p>
-            Organize seu dia a dia e nunca mais esqueça seus compromissos. Entre
-            e aumente sua produtividade agora mesmo!
+            Organize seu dia a dia e nunca mais esqueça seus compromissos. 
+            <br />
+            Entre e aumente sua produtividade agora mesmo!
           </p>
           <div className="buttons">
             <GoogleLogin
@@ -64,7 +65,11 @@ export default function Welcome() {
                 </button>
               )}
             />
-            <a href="https://github.com/ogabrielaraujo/agenda" target="_blank">
+            <a
+              href="https://github.com/ogabrielaraujo/agenda"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <FiGithub />
               Repositório no GitHub
             </a>

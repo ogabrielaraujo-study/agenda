@@ -7,6 +7,7 @@ import Routes from './routes'
 import history from './services/history'
 
 import GlobalStyle from './styles/global'
+import { ToastContainer } from 'react-toastify'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Routes />
 
         <GlobalStyle />
+        <ToastContainer autoClose={3000} />
       </Router>
     </Provider>
   )

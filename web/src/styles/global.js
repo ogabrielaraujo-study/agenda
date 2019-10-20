@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
+import 'react-toastify/dist/ReactToastify.css'
+
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
 
@@ -44,8 +46,6 @@ export default createGlobalStyle`
   /* buttons */
   #root .btn, .modal .btn {
     background-color: transparent;
-    color: #3d3dc9;
-    border-color: #3d3dc9;
     font-size: 14px;
 
     &:hover,
@@ -55,10 +55,32 @@ export default createGlobalStyle`
     &.disabled,
     &:disabled {
       box-shadow: none !important;
-      background-color: #3d3dc9 !important;
-      border-color: #3d3dc9 !important;
       color: #fff !important;
     }
+
+    &.withIcon {
+      padding-top: 5px;
+      padding-bottom: 7px;
+    }
+  }
+
+  .btn.btn-primary {
+    color: #3d3dc9;
+    border-color: #3d3dc9;
+
+    &:hover,
+    &:focus,
+    &.active,
+    &:active,
+    &.disabled,
+    &:disabled {
+      background-color: #3d3dc9 !important;
+      border-color: #3d3dc9 !important;
+    }
+  }
+
+  .btn.btn-danger {
+    color: #c82333;
   }
 
   button {
