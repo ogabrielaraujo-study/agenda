@@ -3,9 +3,10 @@
 const Event = use('App/Models/Event')
 
 class EventController {
-  async index() {
+  async index({ auth }) {
     return await Event.query()
       .where('is_active', 1)
+      .where('user_id', auth.user.id)
       .orderBy('id', 'asc')
       .fetch()
   }
