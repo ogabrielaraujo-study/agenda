@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components'
 import 'react-toastify/dist/ReactToastify.css'
 
 export default createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
 
   *,
   *:before,
@@ -21,8 +21,13 @@ export default createGlobalStyle`
   }
 
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Nunito', sans-serif;
     color: #444;
+  }
+
+  button {
+    outline: none !important;
+    cursor: pointer;
   }
 
   /* scroll */
@@ -45,18 +50,15 @@ export default createGlobalStyle`
 
   /* buttons */
   #root .btn, .modal .btn {
-    background-color: transparent;
     font-size: 14px;
+    box-shadow: none !important;
+    /* background-color: transparent;
 
     &:hover,
-    &:focus,
-    &.active,
-    &:active,
     &.disabled,
     &:disabled {
-      box-shadow: none !important;
       color: #fff !important;
-    }
+    } */
 
     &.withIcon {
       padding-top: 5px;
@@ -65,27 +67,20 @@ export default createGlobalStyle`
   }
 
   .btn.btn-primary {
-    color: #3d3dc9;
+    /* color: #3d3dc9;
     border-color: #3d3dc9;
 
     &:hover,
-    &:focus,
-    &.active,
-    &:active,
     &.disabled,
     &:disabled {
       background-color: #3d3dc9 !important;
       border-color: #3d3dc9 !important;
-    }
+    } */
   }
 
-  .btn.btn-danger {
+  /* .btn.btn-danger {
     color: #c82333;
-  }
-
-  button {
-    outline: none !important;
-  }
+  } */
 
   /* toastify */
   #root .Toastify__toast {

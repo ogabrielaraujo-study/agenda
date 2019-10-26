@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import Welcome from './components/Welcome'
-import Main from './components/Main'
-import Error from './components/Error'
+import Welcome from './pages/Welcome'
+import Main from './pages/Main'
+import Error from './pages/Error'
 
 export default function Routes() {
   return (

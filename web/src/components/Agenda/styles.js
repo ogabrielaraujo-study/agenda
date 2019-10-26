@@ -40,7 +40,8 @@ export const Container = styled.div`
   }
 
   .fc-event {
-    background-color: #3d3dc9 !important;
+    /* background-color: #3d3dc9 !important;
+    color: #fff !important; */
 
     &.fc-allow-mouse-resize {
       .fc-resizer {
@@ -58,6 +59,30 @@ export const Container = styled.div`
           border: 1px solid #ccc;
         }
       }
+    }
+  }
+
+  .fc-toolbar {
+    .btn-primary {
+      background: transparent;
+      color: #3d3dc9;
+
+      &:hover {
+        background: #3d3dc9;
+        color: #fff;
+      }
+
+      &[disabled] {
+        background: #3d3dc9;
+        color: #fff;
+        cursor: not-allowed;
+      }
+    }
+
+    .fc-center h2 {
+      font-size: 22px;
+      font-weight: bold;
+      text-transform: uppercase;
     }
   }
 
