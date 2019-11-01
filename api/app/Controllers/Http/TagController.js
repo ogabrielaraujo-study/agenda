@@ -46,8 +46,7 @@ class TagController {
       return response.status(401).send('Not authorized')
     }
 
-    tag.is_active = 0
-    tag.save()
+    tag.delete()
   }
 }
 

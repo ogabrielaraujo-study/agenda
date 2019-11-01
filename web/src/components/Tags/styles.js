@@ -26,9 +26,13 @@ export const Container = styled.ul`
       border: 0;
       margin-left: 20px;
       background: transparent;
-      color: red;
+      color: #444;
       opacity: 0;
       padding: 5px;
+
+      &:hover {
+        color: red;
+      }
     }
 
     &:hover {
@@ -50,7 +54,7 @@ export const Container = styled.ul`
     position: absolute;
     top: 50px;
     left: 0;
-    z-index: 999;
+    z-index: 99;
   }
 `
 

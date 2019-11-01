@@ -59,7 +59,16 @@ export default function Event() {
     })
   }
 
-  function handleChangeTag() {}
+  function handleChangeTag(e) {
+    const nextEvent = produce(session.currentEvent, draft => {
+      draft.tag_id = e.target.value
+    })
+
+    setSession({
+      ...session,
+      currentEvent: nextEvent,
+    })
+  }
 
   function handleChangeDescription() {}
 
@@ -144,10 +153,20 @@ export default function Event() {
 
       <Form.Group>
         <Form.Label>Tag</Form.Label>
-        <Form.Control as="select" onChange={handleChangeTag} disabled>
+        <Form.Control as="select" onChange={handleChangeTag}>
           {session.tags &&
             session.tags.length > 0 &&
-            session.tags.map(tag => <option key={tag.id}>{tag.name}</option>)}
+            session.tags.map(tag => (
+              <option
+                key={tag.id}
+                value={tag.id}
+                selected={
+                  session.currentEvent && tag.id === session.currentEvent.tag_id
+                }
+              >
+                {tag.name}
+              </option>
+            ))}
         </Form.Control>
       </Form.Group>
 

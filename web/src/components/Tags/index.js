@@ -90,6 +90,22 @@ export default function Tag() {
                   color={tagColor}
                   onChange={handleChangeColor}
                   triangle="top-left"
+                  colors={[
+                    '#3d3dc9',
+                    '#FF6900',
+                    '#FCB900',
+                    '#7BDCB5',
+                    '#00D084',
+                    '#8ED1FC',
+                    '#0693E3',
+                    '#EB144C',
+                    '#F78DA7',
+                    '#9900EF',
+                    '#ABB8C3',
+                    '#666',
+                    '#444',
+                    '#000',
+                  ]}
                 />
               </div>
             )}

@@ -74,4 +74,10 @@ export default createGlobalStyle`
       background: #ee3f3f;
     }
   }
+
+  /* color picker */
+  .colorPicker .twitter-picker > div:nth-child(1n+3) > div:nth-last-child(3),
+  .colorPicker .twitter-picker > div:nth-child(1n+3) > div > input {
+    display: none !important;
+  }
 `

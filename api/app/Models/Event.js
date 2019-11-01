@@ -11,6 +11,10 @@ class Event extends Model {
   tag() {
     return this.hasOne('App/Models/Tag', 'tag_id', 'id')
   }
+
+  static get hidden() {
+    return ['user_id', 'is_active', 'created_at', 'updated_at']
+  }
 }
 
 module.exports = Event

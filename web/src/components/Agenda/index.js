@@ -69,6 +69,7 @@ export default function Agenda() {
         title: eventClicked.event.title,
         start: eventClicked.event.start,
         end: eventClicked.event.end,
+        tag_id: eventClicked.event.extendedProps.tag_id,
       },
     })
   }

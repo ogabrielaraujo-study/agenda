@@ -13,7 +13,7 @@ class EventController {
   }
 
   async store({ request, auth }) {
-    const data = request.only(['title', 'start', 'end'])
+    const data = request.only(['title', 'start', 'end', 'tag_id'])
 
     data.user_id = auth.user.id
 
@@ -32,9 +32,10 @@ class EventController {
       return response.status(401).send('Not authorized')
     }
 
-    event.title = data.title
-    event.start = data.start
-    event.end = data.end
+    event.title = data.title || event.title
+    event.start = data.start || event.start
+    event.end = data.end || event.end
+    event.tag_id = data.tag_id ? data.tag_id : null
 
     await event.save()
 
