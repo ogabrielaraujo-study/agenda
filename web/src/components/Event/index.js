@@ -211,7 +211,7 @@ export default function Event() {
         </Form.Group>
 
         <Button
-          variant="outline-secondary"
+          variant="outline-primary"
           type="submit"
           className="save"
           onClick={handleSave}
