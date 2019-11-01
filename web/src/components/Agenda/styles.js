@@ -17,6 +17,12 @@ export const Container = styled.div`
     font-weight: bold;
   }
 
+  .fc-axis {
+    span {
+      font-size: 13px;
+    }
+  }
+
   .fc-bootstrap .fc-event {
     box-shadow: 0px 5px 15px rgba(69, 69, 69, 0.15);
     padding: 4px;
@@ -25,22 +31,28 @@ export const Container = styled.div`
     font-size: 14px;
   }
 
-  /* .fc-axis {
-    display: none !important;
-  } */
-
-  /* .fc-time-grid .fc-slats .fc-minor td,
-  .fc-time-grid .fc-slats td {
-    border-top: 1px solid #f1f1f1;
-  } */
-
   .table-bordered td,
   .table-bordered th {
     border: 1px solid #f1f1f1;
   }
 
+  .table-bordered thead th {
+    padding-top: 7px;
+    padding-bottom: 7px;
+
+    &.fc-today {
+      background: #f8f8f8 !important;
+    }
+
+    a:hover {
+      color: #3d3dc9;
+    }
+  }
+
   .fc-event {
-    background-color: #3d3dc9 !important;
+    /* background-color: #3d3dc9 !important;
+     */
+    color: #fff !important;
 
     &.fc-allow-mouse-resize {
       .fc-resizer {
@@ -58,6 +70,30 @@ export const Container = styled.div`
           border: 1px solid #ccc;
         }
       }
+    }
+  }
+
+  .fc-toolbar {
+    .btn-primary {
+      background: transparent;
+      color: #3d3dc9;
+
+      &:hover {
+        background: #3d3dc9;
+        color: #fff;
+      }
+
+      &[disabled] {
+        background: #3d3dc9;
+        color: #fff;
+        cursor: not-allowed;
+      }
+    }
+
+    .fc-center h2 {
+      font-size: 22px;
+      font-weight: bold;
+      text-transform: uppercase;
     }
   }
 

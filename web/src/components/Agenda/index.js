@@ -1,17 +1,17 @@
-import React, { useContext, useState, useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Container } from './styles'
 
-import { Context } from '../../store/context'
-import api from '../../services/api'
-import history from '../../services/history'
-//import io from 'socket.io-client'
 import 'dotenv/config'
+import { Context } from '../../store/context'
+import produce from 'immer'
+import { format, addMinutes } from 'date-fns'
+import pt from 'date-fns/locale/pt'
+import { getEvents, updateEvent } from '../Event/functions'
 
 // FullCalendar
 import '@fullcalendar/core/main.css'
 import '@fullcalendar/daygrid/main.css'
 import '@fullcalendar/timegrid/main.css'
-import '@fullcalendar/bootstrap/main.css'
 import FullCalendar from '@fullcalendar/react'
 import interactionPlugin from '@fullcalendar/interaction'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -19,17 +19,9 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrapPlugin from '@fullcalendar/bootstrap'
 import brLocale from '@fullcalendar/core/locales/pt-br'
 
-import { Modal, Button, Form } from 'react-bootstrap'
-import { FiTrash2 } from 'react-icons/fi'
-import { toast } from 'react-toastify'
-import { getEvents, createEvent, updateEvent, deleteEvent } from './events'
-
-export default function App() {
+export default function Agenda() {
   const [session, setSession] = useContext(Context)
   const calendarRef = useRef()
-  const [eventName, setEventName] = useState('')
-  const [currentEvent, setCurrentEvent] = useState(null)
-  //const socket = io(process.env.REACT_APP_API_URL)
 
   useEffect(() => {
     const calendarApi = calendarRef.current.getApi()
@@ -39,137 +31,103 @@ export default function App() {
     }
   }, [])
 
+  useEffect(() => {
+    calendarRef.current.getApi().refetchEvents()
+  }, [session.showEvent])
+
   function handleDateClick(event) {
-    setPopup(true)
-    setCurrentEvent(event)
+    setSession({
+      ...session,
+      showEvent: true,
+      currentEvent: {
+        id: null,
+        title: '',
+        start: event.date,
+        end: addMinutes(event.date, 60),
+        description: null,
+      },
+    })
   }
 
-  async function handlePopupEvent(e) {
-    e.preventDefault()
+  function handleSelectClick(event) {
+    setSession({
+      ...session,
+      showEvent: true,
+      currentEvent: {
+        id: null,
+        title: '',
+        start: event.start,
+        end: event.end,
+        description: null,
+      },
+    })
+  }
 
-    if (
-      currentEvent.event !== undefined &&
-      currentEvent.event.title === eventName
-    ) {
-      setPopup(false)
-      setEventName('')
-      setCurrentEvent(null)
-      return
+  async function handleEventClick(eventClicked) {
+    console.log(eventClicked)
+    await setSession({
+      ...session,
+      showEvent: true,
+      currentEvent: {
+        id: eventClicked.event.id,
+        title: eventClicked.event.title,
+        start: eventClicked.event.start,
+        end: eventClicked.event.end,
+        tag_id: eventClicked.event.extendedProps.tag_id,
+        description: eventClicked.event.extendedProps.description,
+      },
+    })
+  }
+
+  function handleRenderEvent(info) {
+    if (session.currentEvent && info.event.id !== session.currentEvent.id) {
+      info.el.style.cssText += 'opacity: 0.3;'
+    }
+  }
+
+  async function handleEventDrop(e) {
+    if (session.currentEvent) {
+      const nextEvent = produce(session.currentEvent, draft => {
+        draft.start = e.event.start
+        draft.end = e.event.end
+      })
+
+      console.log(nextEvent)
+
+      setSession({
+        ...session,
+        currentEvent: nextEvent,
+      })
     }
 
-    if (eventName.length < 3) {
-      toast.error('Evento deve ter pelo menos 3 caracteres')
-      return
+    await updateEvent(e.event)
+  }
+
+  async function handleEventResize(e) {
+    if (session.currentEvent) {
+      const nextEvent = produce(session.currentEvent, draft => {
+        draft.end = e.event.end
+      })
+
+      setSession({
+        ...session,
+        currentEvent: nextEvent,
+      })
     }
 
-    await createEvent(eventName, currentEvent)
-
-    toast.success('Evento foi salvo com sucesso!')
-    calendarRef.current.getApi().refetchEvents()
-    setPopup(false)
-    setEventName('')
-    setCurrentEvent(null)
-  }
-
-  async function handleDeleteEvent(current) {
-    await deleteEvent(current)
-
-    calendarRef.current.getApi().refetchEvents()
-    toast.success('Evento deletado com sucesso!')
-
-    setPopup(false)
-    setEventName('')
-    setCurrentEvent(null)
-  }
-
-  function handleEventClick(eventClicked) {
-    setPopup(true)
-    setCurrentEvent(eventClicked)
-    setEventName(eventClicked.event.title)
-  }
-
-  /* socket.on('createEvent', createdEvent => {
-    setChanged(changed + 1)
-  }) */
-
-  /* socket.on('updateEvent', updatedEvent => {
-    setChanged(changed + 1)
-  }) */
-
-  const [profile, setProfile] = useState(false)
-  const handleShowProfile = () => setProfile(true)
-  const handleCloseProfile = () => setProfile(false)
-
-  const [popup, setPopup] = useState(false)
-  const handleClosePopup = () => {
-    setPopup(false)
-    setEventName('')
-  }
-
-  async function handleLogout() {
-    setSession({})
-
-    history.push('/')
+    await updateEvent(e.event)
   }
 
   return (
     <Container id="agenda">
-      {/* Perfil */}
-      <Modal show={profile} onHide={handleCloseProfile}>
-        <Modal.Header closeButton>
-          <Modal.Title>Meu Perfil</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form.Group>
-            <Form.Label>Nome</Form.Label>
-            <Form.Control type="text" value={session.name} disabled />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>E-mail</Form.Label>
-            <Form.Control type="text" value={session.email} disabled />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handleLogout}>Sair</Button>
-        </Modal.Footer>
-      </Modal>
-
-      {/* Evento */}
-      <Modal show={popup} onHide={handleClosePopup} centered>
-        <Form onSubmit={handlePopupEvent}>
-          <Modal.Header closeButton>
-            <Modal.Title>Evento</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form.Group>
-              <Form.Label>Título</Form.Label>
-              <Form.Control
-                type="text"
-                value={eventName}
-                onChange={e => setEventName(e.target.value)}
-                autoFocus
-              />
-            </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            {currentEvent && currentEvent.event && (
-              <Button
-                variant="danger"
-                className="withIcon"
-                onClick={() => handleDeleteEvent(currentEvent)}
-              >
-                <FiTrash2 size="16" />
-              </Button>
-            )}
-            <Button onClick={handlePopupEvent}>Salvar</Button>
-          </Modal.Footer>
-        </Form>
-      </Modal>
-
-      {/* Agenda */}
       <FullCalendar
         ref={calendarRef}
+        events={getEvents}
+        eventClick={handleEventClick}
+        select={event => handleSelectClick(event)}
+        dateClick={event => handleDateClick(event)}
+        eventDrop={event => handleEventDrop(event)}
+        eventResize={event => handleEventResize(event)}
         id="fullCalendar"
         defaultView="timeGridWeek"
         plugins={[
@@ -178,10 +136,15 @@ export default function App() {
           timeGridPlugin,
           bootstrapPlugin,
         ]}
-        dateClick={event => handleDateClick(event)}
-        events={getEvents}
-        eventDrop={event => updateEvent(event)}
-        eventResize={event => updateEvent(event)}
+        columnHeaderText={date => {
+          return format(date, 'EEEE', { locale: pt })
+            ? format(date, 'EEEE', { locale: pt })
+                .split('-')[0]
+                .toUpperCase() +
+                ', ' +
+                format(date, 'dd')
+            : null
+        }}
         editable={true}
         navLinks={true}
         eventLimit={true}
@@ -189,19 +152,13 @@ export default function App() {
         allDaySlot={false}
         nowIndicator={true}
         locale={brLocale}
+        eventRender={handleRenderEvent}
         themeSystem="bootstrap"
         height="parent"
-        customButtons={{
-          account: {
-            text: session.name || 'Perfil',
-            click: handleShowProfile,
-          },
-        }}
         header={{
           left: 'today prev,next',
           center: 'title',
-          right:
-            'dayGridMonth,timeGridWeek,timeGridDay,timeGridFourDay account',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,timeGridFourDay',
         }}
         titleFormat={{
           year: 'numeric',
@@ -221,14 +178,14 @@ export default function App() {
         slotDuration="01:00"
         slotLabelInterval="01:00"
         slotLabelFormat={{
-          hour: 'numeric',
+          hour: '2-digit',
           minute: '2-digit',
+          omitZeroMinute: false,
         }}
         buttonText={{
           next: 'Próximo',
           prev: 'Voltar',
         }}
-        eventClick={handleEventClick}
       />
     </Container>
   )

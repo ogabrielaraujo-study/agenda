@@ -1,6 +1,7 @@
 # Agenda
 
-Agenda - Realtime com NodeJs, ReactJS e Postgres
+Organize seu dia a dia e nunca mais esqueça seus compromissos.
+Entre e aumente sua produtividade agora mesmo!
 
 [ACESSAR DEMO](https://agenda.ogabrielaraujo.com.br)
 
@@ -14,7 +15,8 @@ Agenda - Realtime com NodeJs, ReactJS e Postgres
 - [x] [Axios](https://github.com/axios/axios)
 - [x] [adonis](https://adonisjs.com/)
 - [x] [FullCalendar](https://github.com/fullcalendar/fullcalendar)
-- [ ] [socket.io](https://github.com/socketio/socket.io)
+- [x] [Lottie](https://airbnb.io/lottie/)
+  - LottieFile: https://lottiefiles.com/433-checked-done
 
 ### Como usar?
 

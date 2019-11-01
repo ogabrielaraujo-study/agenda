@@ -5,6 +5,7 @@ const Event = use('App/Models/Event')
 class EventController {
   async index({ auth }) {
     return await Event.query()
+      .with('tag')
       .where('is_active', 1)
       .where('user_id', auth.user.id)
       .orderBy('id', 'asc')
@@ -12,7 +13,13 @@ class EventController {
   }
 
   async store({ request, auth }) {
-    const data = request.only(['title', 'start', 'end'])
+    const data = request.only([
+      'title',
+      'start',
+      'end',
+      'tag_id',
+      'description',
+    ])
 
     data.user_id = auth.user.id
 
@@ -31,9 +38,11 @@ class EventController {
       return response.status(401).send('Not authorized')
     }
 
-    event.title = data.title
-    event.start = data.start
-    event.end = data.end
+    event.title = data.title || event.title
+    event.start = data.start || event.start
+    event.end = data.end || event.end
+    event.tag_id = data.tag_id || event.tag_id
+    event.description = data.description || event.description
 
     await event.save()
 

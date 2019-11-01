@@ -3,13 +3,9 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class Event extends Model {
+class Tag extends Model {
   user() {
     return this.belongsTo('App/Models/User')
-  }
-
-  tag() {
-    return this.hasOne('App/Models/Tag', 'tag_id', 'id')
   }
 
   static get hidden() {
@@ -17,4 +13,4 @@ class Event extends Model {
   }
 }
 
-module.exports = Event
+module.exports = Tag

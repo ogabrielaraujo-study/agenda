@@ -14,4 +14,5 @@ Route.post('/auth/google', 'AuthController.loginWithGoogleId')
 Route.group(() => {
   // Events
   Route.resource('events', 'EventController').apiOnly()
+  Route.resource('tags', 'TagController').apiOnly()
 }).middleware(['auth'])
