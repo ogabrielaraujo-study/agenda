@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Container } from './styles'
 
 import { Context } from '../../store/context'
@@ -13,9 +13,13 @@ import { FiArrowLeft, FiTrash } from 'react-icons/fi'
 import { Form } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import produce from 'immer'
+import Lottie from 'react-lottie'
+import animationData from './checked.json'
 
 export default function Event() {
   const [session, setSession] = useContext(Context)
+  const [paused, setPaused] = useState(true)
+  const [stopped, setStopped] = useState(true)
 
   function handleClose() {
     setSession({
@@ -85,11 +89,19 @@ export default function Event() {
       await updateEvent(session.currentEvent)
     }
 
-    setSession({
-      ...session,
-      showEvent: false,
-      currentEvent: null,
-    })
+    setStopped(false)
+    setPaused(false)
+
+    setTimeout(() => {
+      setSession({
+        ...session,
+        showEvent: false,
+        currentEvent: null,
+      })
+
+      setPaused(true)
+      setStopped(true)
+    }, 1000)
   }
 
   async function handleDelete() {
@@ -102,6 +114,15 @@ export default function Event() {
       showEvent: false,
       currentEvent: null,
     })
+  }
+
+  const defaultOptions = {
+    loop: false,
+    autoplay: false,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
   }
 
   return (
@@ -179,8 +200,15 @@ export default function Event() {
         />
       </Form.Group> */}
 
-      <button onClick={handleSave} type="submit">
-        Salvar
+      <button onClick={handleSave} type="submit" className="submitEvent">
+        <Lottie
+          options={defaultOptions}
+          height={150}
+          width={150}
+          isStopped={stopped}
+          isPaused={paused}
+        />
+        <span>Salvar</span>
       </button>
     </Container>
   )

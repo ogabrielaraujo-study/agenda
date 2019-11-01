@@ -52,4 +52,32 @@ export const Container = styled.div`
   .form-group {
     width: 100%;
   }
+
+  .submitEvent {
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    width: 150px;
+    height: 42px;
+    border: 2px solid #ced4da;
+    margin-top: 40px;
+    border-radius: 21px;
+    padding-left: 30px;
+    transition: all 0.5s;
+
+    &:focus {
+      border-color: #0b9c37;
+      transition: all 0.5s;
+    }
+
+    > div {
+      position: absolute;
+      left: calc(-38%);
+    }
+  }
 `
