@@ -1,4 +1,10 @@
 import api from '../../services/api'
+import { format } from 'date-fns'
+import pt from 'date-fns/locale/pt'
+
+export function formatDateTime(dateTime) {
+  return format(new Date(dateTime), "Y-M-dd'T'HH:mm", { locale: pt })
+}
 
 export async function getEvents() {
   const events = await api.get('events')

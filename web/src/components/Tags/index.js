@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Container, Color, InputColorPicker } from './styles'
+import { Container, TagList, Color, InputColorPicker } from './styles'
 
 import { Context } from '../../store/context'
 import { getTags, createTag, deleteTag } from './functions'
@@ -59,17 +59,20 @@ export default function Tag() {
 
   return (
     <Container>
-      {session.tags &&
-        session.tags.length > 0 &&
-        session.tags.map(tag => (
-          <li key={tag.id}>
-            <Color color={tag.color} />
-            <span className="name">{tag.name}</span>
-            <button onClick={() => handleDelete(tag.id)}>
-              <FiTrash size="18" />
-            </button>
-          </li>
-        ))}
+      <TagList>
+        {session.tags &&
+          session.tags.length > 0 &&
+          session.tags.map(tag => (
+            <li key={tag.id}>
+              <Color color={tag.color} />
+              <span className="name">{tag.name}</span>
+              <button onClick={() => handleDelete(tag.id)}>
+                <FiTrash size="18" />
+              </button>
+            </li>
+          ))}
+      </TagList>
+
       <Form onSubmit={handleSubmit}>
         <InputGroup className="mt-4">
           <InputGroup.Prepend>

@@ -2,21 +2,20 @@ import React, { useContext } from 'react'
 import { Container } from './styles'
 
 import { Context } from '../../store/context'
-import { createEvent, updateEvent, deleteEvent } from './functions'
+import {
+  createEvent,
+  updateEvent,
+  deleteEvent,
+  formatDateTime,
+} from './functions'
 
 import { FiArrowLeft, FiTrash } from 'react-icons/fi'
 import { Form } from 'react-bootstrap'
 import { toast } from 'react-toastify'
-import { format } from 'date-fns'
-import pt from 'date-fns/locale/pt'
 import produce from 'immer'
 
 export default function Event() {
   const [session, setSession] = useContext(Context)
-
-  function formatDateTime(dateTime) {
-    return format(new Date(dateTime), "Y-M-dd'T'HH:mm", { locale: pt })
-  }
 
   function handleClose() {
     setSession({
@@ -170,7 +169,7 @@ export default function Event() {
         </Form.Control>
       </Form.Group>
 
-      <Form.Group>
+      {/* <Form.Group>
         <Form.Label>Descrição</Form.Label>
         <Form.Control
           disabled
@@ -178,7 +177,7 @@ export default function Event() {
           rows="5"
           onChange={handleChangeDescription}
         />
-      </Form.Group>
+      </Form.Group> */}
 
       <button onClick={handleSave} type="submit">
         Salvar

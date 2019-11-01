@@ -1,11 +1,51 @@
 import styled from 'styled-components'
 
-export const Container = styled.ul`
+export const Container = styled.div`
+  height: calc(100% - 230px);
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  .colorName:focus {
+    box-shadow: none;
+    border-left: 1px solid #ced4da;
+    border-top: 1px solid #ced4da;
+    border-bottom: 1px solid #ced4da;
+    border-right: 1px solid #6c757d;
+  }
+
+  .colorPicker {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    z-index: 99;
+  }
+`
+
+export const TagList = styled.ul`
   list-style: none;
   text-align: left;
   width: 100%;
-  margin-top: 20px;
   padding-left: 0;
+  overflow: auto;
+  margin-bottom: 0;
+  max-height: calc(100% - 50px);
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 0;
+    border-left: 0;
+    background: #f0f0f0;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    box-shadow: none;
+    background: #ccc;
+    border-radius: 0;
+  }
 
   li {
     display: flex;
@@ -40,21 +80,6 @@ export const Container = styled.ul`
         opacity: 1;
       }
     }
-  }
-
-  .colorName:focus {
-    box-shadow: none;
-    border-left: 1px solid #ced4da;
-    border-top: 1px solid #ced4da;
-    border-bottom: 1px solid #ced4da;
-    border-right: 1px solid #6c757d;
-  }
-
-  .colorPicker {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    z-index: 99;
   }
 `
 
