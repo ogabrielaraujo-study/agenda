@@ -6,7 +6,7 @@ const Schema = use('Schema')
 class EventDescriptionSchema extends Schema {
   up() {
     this.alter('events', table => {
-      table.string('description', 255).notNullable()
+      table.text('description')
     })
   }
 

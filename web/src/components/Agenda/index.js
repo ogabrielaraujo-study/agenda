@@ -44,6 +44,7 @@ export default function Agenda() {
         title: '',
         start: event.date,
         end: addMinutes(event.date, 60),
+        description: null,
       },
     })
   }
@@ -57,11 +58,13 @@ export default function Agenda() {
         title: '',
         start: event.start,
         end: event.end,
+        description: null,
       },
     })
   }
 
   async function handleEventClick(eventClicked) {
+    console.log(eventClicked)
     await setSession({
       ...session,
       showEvent: true,
@@ -71,6 +74,7 @@ export default function Agenda() {
         start: eventClicked.event.start,
         end: eventClicked.event.end,
         tag_id: eventClicked.event.extendedProps.tag_id,
+        description: eventClicked.event.extendedProps.description,
       },
     })
   }

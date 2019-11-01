@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Container } from './styles'
+import { Container, AnimateCheck } from './styles'
 
 import { Context } from '../../store/context'
 import {
@@ -9,8 +9,8 @@ import {
   formatDateTime,
 } from './functions'
 
-import { FiArrowLeft, FiTrash } from 'react-icons/fi'
-import { Form } from 'react-bootstrap'
+import { FiArrowLeft, FiTrash, FiSave } from 'react-icons/fi'
+import { Form, Button } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import produce from 'immer'
 import Lottie from 'react-lottie'
@@ -73,7 +73,16 @@ export default function Event() {
     })
   }
 
-  function handleChangeDescription() {}
+  function handleChangeDescription(e) {
+    const nextEvent = produce(session.currentEvent, draft => {
+      draft.description = e.target.value
+    })
+
+    setSession({
+      ...session,
+      currentEvent: nextEvent,
+    })
+  }
 
   async function handleSave(e) {
     e.preventDefault()
@@ -135,81 +144,91 @@ export default function Event() {
           <FiTrash size={18} />
         </button>
       </div>
+      <Form onSubmit={handleSave}>
+        <Form.Group>
+          <Form.Label>Nome</Form.Label>
+          <Form.Control
+            type="text"
+            value={(session.currentEvent && session.currentEvent.title) || ''}
+            onChange={handleChangeTitle}
+          />
+        </Form.Group>
 
-      <Form.Group>
-        <Form.Label>Nome</Form.Label>
-        <Form.Control
-          type="text"
-          value={(session.currentEvent && session.currentEvent.title) || ''}
-          onChange={handleChangeTitle}
-        />
-      </Form.Group>
+        <Form.Group>
+          <Form.Label>Início</Form.Label>
+          <Form.Control
+            type="datetime-local"
+            value={
+              session.currentEvent && session.currentEvent.start
+                ? formatDateTime(session.currentEvent.start)
+                : ''
+            }
+            onChange={handleChangeInicio}
+          />
+        </Form.Group>
 
-      <Form.Group>
-        <Form.Label>Início</Form.Label>
-        <Form.Control
-          type="datetime-local"
-          value={
-            session.currentEvent && session.currentEvent.start
-              ? formatDateTime(session.currentEvent.start)
-              : ''
-          }
-          onChange={handleChangeInicio}
-        />
-      </Form.Group>
+        <Form.Group>
+          <Form.Label>Fim</Form.Label>
+          <Form.Control
+            type="datetime-local"
+            value={
+              session.currentEvent && session.currentEvent.end
+                ? formatDateTime(session.currentEvent.end)
+                : ''
+            }
+            onChange={handleChangeFim}
+          />
+        </Form.Group>
 
-      <Form.Group>
-        <Form.Label>Fim</Form.Label>
-        <Form.Control
-          type="datetime-local"
-          value={
-            session.currentEvent && session.currentEvent.end
-              ? formatDateTime(session.currentEvent.end)
-              : ''
-          }
-          onChange={handleChangeFim}
-        />
-      </Form.Group>
+        <Form.Group>
+          <Form.Label>Tag</Form.Label>
+          <Form.Control
+            as="select"
+            onChange={handleChangeTag}
+            value={(session.currentEvent && session.currentEvent.tag_id) || ''}
+          >
+            {session.tags &&
+              session.tags.length > 0 &&
+              session.tags.map(tag => (
+                <option key={tag.id} value={tag.id}>
+                  {tag.name}
+                </option>
+              ))}
+          </Form.Control>
+        </Form.Group>
 
-      <Form.Group>
-        <Form.Label>Tag</Form.Label>
-        <Form.Control as="select" onChange={handleChangeTag}>
-          {session.tags &&
-            session.tags.length > 0 &&
-            session.tags.map(tag => (
-              <option
-                key={tag.id}
-                value={tag.id}
-                selected={
-                  session.currentEvent && tag.id === session.currentEvent.tag_id
-                }
-              >
-                {tag.name}
-              </option>
-            ))}
-        </Form.Control>
-      </Form.Group>
+        <Form.Group>
+          <Form.Label>Descrição</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows="5"
+            name="description"
+            onChange={handleChangeDescription}
+            value={
+              (session.currentEvent && session.currentEvent.description) || ''
+            }
+          />
+        </Form.Group>
 
-      {/* <Form.Group>
-        <Form.Label>Descrição</Form.Label>
-        <Form.Control
-          disabled
-          as="textarea"
-          rows="5"
-          onChange={handleChangeDescription}
-        />
-      </Form.Group> */}
+        <Button
+          variant="outline-secondary"
+          type="submit"
+          className="save"
+          onClick={handleSave}
+        >
+          <FiSave size={18} /> Salvar
+        </Button>
+      </Form>
 
-      <button onClick={handleSave} type="submit" className="submitEvent">
+      <AnimateCheck status={paused}>
         <Lottie
           options={defaultOptions}
-          height={150}
-          width={150}
+          height={275}
+          width={275}
           isStopped={stopped}
           isPaused={paused}
         />
-        <span>Salvar</span>
-      </button>
+      </AnimateCheck>
     </Container>
   )
 }

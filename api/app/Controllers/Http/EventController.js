@@ -13,7 +13,13 @@ class EventController {
   }
 
   async store({ request, auth }) {
-    const data = request.only(['title', 'start', 'end', 'tag_id'])
+    const data = request.only([
+      'title',
+      'start',
+      'end',
+      'tag_id',
+      'description',
+    ])
 
     data.user_id = auth.user.id
 
@@ -36,6 +42,7 @@ class EventController {
     event.start = data.start || event.start
     event.end = data.end || event.end
     event.tag_id = data.tag_id ? data.tag_id : null
+    event.description = data.description || event.description
 
     await event.save()
 

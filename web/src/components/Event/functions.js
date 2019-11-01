@@ -22,6 +22,7 @@ export async function createEvent(data) {
     title: data.title,
     start: data.start,
     end: data.end,
+    description: data.description,
   })
 }
 
@@ -33,6 +34,7 @@ export async function updateEvent(data) {
     end: data.end,
     title: data.title,
     tag_id: data.tag_id ? data.tag_id : null,
+    description: data.description,
   })
 }
 

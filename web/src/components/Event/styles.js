@@ -49,35 +49,36 @@ export const Container = styled.div`
     }
   }
 
+  form,
   .form-group {
     width: 100%;
   }
 
-  .submitEvent {
-    background: transparent;
-    border: none;
+  .save {
+    height: 40px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    line-height: 19px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0 auto;
 
-    position: relative;
-    width: 150px;
-    height: 42px;
-    border: 2px solid #ced4da;
-    margin-top: 40px;
-    border-radius: 21px;
-    padding-left: 30px;
-    transition: all 0.5s;
-
-    &:hover {
-      box-shadow: 0 5px 13px rgba(0, 0, 0, 0.08);
-      transition: all 0.5s;
-    }
-
-    > div {
-      position: absolute;
-      left: calc(-38%);
+    svg {
+      margin-right: 15px;
     }
   }
+`
+
+export const AnimateCheck = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 101;
+  ${props => (props.status ? 'display: none' : 'display: flex')}
+  align-items: center;
+  justify-content: center;
 `
