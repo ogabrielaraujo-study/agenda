@@ -25,18 +25,22 @@ export const Container = styled.div`
     font-size: 14px;
   }
 
-  /* .fc-axis {
-    display: none !important;
-  } */
-
-  /* .fc-time-grid .fc-slats .fc-minor td,
-  .fc-time-grid .fc-slats td {
-    border-top: 1px solid #f1f1f1;
-  } */
-
   .table-bordered td,
   .table-bordered th {
     border: 1px solid #f1f1f1;
+  }
+
+  .table-bordered thead th {
+    padding-top: 7px;
+    padding-bottom: 7px;
+
+    &.fc-today {
+      background: #f8f8f8 !important;
+    }
+
+    a:hover {
+      color: #3d3dc9;
+    }
   }
 
   .fc-event {

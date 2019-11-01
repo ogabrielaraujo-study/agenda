@@ -70,8 +70,8 @@ export const Container = styled.div`
     padding-left: 30px;
     transition: all 0.5s;
 
-    &:focus {
-      border-color: #0b9c37;
+    &:hover {
+      box-shadow: 0 5px 13px rgba(0, 0, 0, 0.08);
       transition: all 0.5s;
     }
 

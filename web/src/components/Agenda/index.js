@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import { Container } from './styles'
 
+import 'dotenv/config'
 import { Context } from '../../store/context'
 import produce from 'immer'
-import { addMinutes } from 'date-fns'
+import { format, addMinutes } from 'date-fns'
+import pt from 'date-fns/locale/pt'
 import { getEvents, updateEvent } from '../Event/functions'
-import 'dotenv/config'
 
 // FullCalendar
 import '@fullcalendar/core/main.css'
@@ -129,6 +130,15 @@ export default function Agenda() {
           timeGridPlugin,
           bootstrapPlugin,
         ]}
+        columnHeaderText={date => {
+          return format(date, 'EEEE', { locale: pt })
+            ? format(date, 'EEEE', { locale: pt })
+                .split('-')[0]
+                .toUpperCase() +
+                ', ' +
+                format(date, 'dd')
+            : null
+        }}
         editable={true}
         navLinks={true}
         eventLimit={true}
