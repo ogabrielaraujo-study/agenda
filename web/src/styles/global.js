@@ -52,35 +52,12 @@ export default createGlobalStyle`
   #root .btn, .modal .btn {
     font-size: 14px;
     box-shadow: none !important;
-    /* background-color: transparent;
-
-    &:hover,
-    &.disabled,
-    &:disabled {
-      color: #fff !important;
-    } */
 
     &.withIcon {
       padding-top: 5px;
       padding-bottom: 7px;
     }
   }
-
-  .btn.btn-primary {
-    /* color: #3d3dc9;
-    border-color: #3d3dc9;
-
-    &:hover,
-    &.disabled,
-    &:disabled {
-      background-color: #3d3dc9 !important;
-      border-color: #3d3dc9 !important;
-    } */
-  }
-
-  /* .btn.btn-danger {
-    color: #c82333;
-  } */
 
   /* toastify */
   #root .Toastify__toast {
