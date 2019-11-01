@@ -2,30 +2,90 @@ import React, { useContext } from 'react'
 import { Container } from './styles'
 
 import { Context } from '../../store/context'
-import { deleteEvent } from './functions'
+import { createEvent, updateEvent, deleteEvent } from './functions'
 
 import { FiArrowLeft, FiTrash } from 'react-icons/fi'
 import { Form } from 'react-bootstrap'
 import { toast } from 'react-toastify'
+import { format } from 'date-fns'
+import pt from 'date-fns/locale/pt'
+import produce from 'immer'
 
 export default function Event() {
   const [session, setSession] = useContext(Context)
+
+  function formatDateTime(dateTime) {
+    return format(new Date(dateTime), "Y-M-dd'T'HH:mm", { locale: pt })
+  }
 
   function handleClose() {
     setSession({
       ...session,
       showEvent: false,
       currentEvent: null,
-      currentEventName: '',
     })
   }
 
-  function handleChangeName() {}
+  function handleChangeTitle(e) {
+    const nextEvent = produce(session.currentEvent, draft => {
+      draft.title = e.target.value
+    })
+
+    setSession({
+      ...session,
+      currentEvent: nextEvent,
+    })
+  }
+
+  function handleChangeInicio(e) {
+    const nextEvent = produce(session.currentEvent, draft => {
+      draft.start = e.target.value
+    })
+
+    setSession({
+      ...session,
+      currentEvent: nextEvent,
+    })
+  }
+
+  function handleChangeFim(e) {
+    const nextEvent = produce(session.currentEvent, draft => {
+      draft.end = e.target.value
+    })
+
+    setSession({
+      ...session,
+      currentEvent: nextEvent,
+    })
+  }
+
   function handleChangeTag() {}
+
   function handleChangeDescription() {}
 
+  async function handleSave(e) {
+    e.preventDefault()
+
+    if (!session.currentEvent) {
+      toast.error('Nenhum evento encontrado')
+      return
+    }
+
+    if (session.currentEvent.id === null) {
+      await createEvent(session.currentEvent)
+    } else {
+      await updateEvent(session.currentEvent)
+    }
+
+    setSession({
+      ...session,
+      showEvent: false,
+      currentEvent: null,
+    })
+  }
+
   async function handleDelete() {
-    await deleteEvent(session.currentEvent)
+    await deleteEvent(session.currentEvent.id)
 
     // calendarRef.current.getApi().refetchEvents()
     toast.success('Evento deletado com sucesso!')
@@ -34,7 +94,6 @@ export default function Event() {
       ...session,
       showEvent: false,
       currentEvent: null,
-      currentEventName: '',
     })
   }
 
@@ -62,7 +121,7 @@ export default function Event() {
     await createEvent(eventName, currentEvent)
 
     toast.success('Evento foi salvo com sucesso!')
-    calendarRef.current.getApi().refetchEvents()
+
 
     setSession({
       ...session,
@@ -89,8 +148,34 @@ export default function Event() {
         <Form.Label>Nome</Form.Label>
         <Form.Control
           type="text"
-          value={session.currentEventName}
-          onChange={handleChangeName}
+          value={(session.currentEvent && session.currentEvent.title) || ''}
+          onChange={handleChangeTitle}
+        />
+      </Form.Group>
+
+      <Form.Group>
+        <Form.Label>Início</Form.Label>
+        <Form.Control
+          type="datetime-local"
+          value={
+            session.currentEvent && session.currentEvent.start
+              ? formatDateTime(session.currentEvent.start)
+              : ''
+          }
+          onChange={handleChangeInicio}
+        />
+      </Form.Group>
+
+      <Form.Group>
+        <Form.Label>Fim</Form.Label>
+        <Form.Control
+          type="datetime-local"
+          value={
+            session.currentEvent && session.currentEvent.end
+              ? formatDateTime(session.currentEvent.end)
+              : ''
+          }
+          onChange={handleChangeFim}
         />
       </Form.Group>
 
@@ -106,11 +191,16 @@ export default function Event() {
       <Form.Group>
         <Form.Label>Descrição</Form.Label>
         <Form.Control
+          disabled
           as="textarea"
           rows="5"
           onChange={handleChangeDescription}
         />
       </Form.Group>
+
+      <button onClick={handleSave} type="submit">
+        Salvar
+      </button>
     </Container>
   )
 }

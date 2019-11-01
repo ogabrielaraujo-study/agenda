@@ -11,29 +11,21 @@ export async function getEvents() {
   return newEvents
 }
 
-export async function createEvent(name, data) {
-  if (data.event === undefined) {
-    await api.post('/events', {
-      title: name,
-      start: data.startStr !== undefined ? data.startStr : data.dateStr,
-      end: data.endStr !== undefined ? data.endStr : null,
-    })
-  } else {
-    await api.put(`/events/${data.event.id}`, {
-      title: name,
-      start: data.startStr,
-      end: data.endStr,
-    })
-  }
+export async function createEvent(data) {
+  await api.post('/events', {
+    title: data.title,
+    start: data.start,
+    end: data.end,
+  })
 }
 
 export async function updateEvent(data) {
-  const id = data.event.id
+  const id = data.id
 
   await api.put(`events/${id}`, {
-    start: data.event.start,
-    end: data.event.end,
-    title: data.event.title,
+    start: data.start,
+    end: data.end,
+    title: data.title,
   })
 }
 

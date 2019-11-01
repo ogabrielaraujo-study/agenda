@@ -41,7 +41,8 @@ export const Container = styled.div`
 
   .fc-event {
     /* background-color: #3d3dc9 !important;
-    color: #fff !important; */
+     */
+    color: #fff !important;
 
     &.fc-allow-mouse-resize {
       .fc-resizer {

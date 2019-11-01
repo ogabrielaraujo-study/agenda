@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useRef } from 'react'
 import { Container } from './styles'
 
 import { Context } from '../../store/context'
+import produce from 'immer'
+import { addMinutes } from 'date-fns'
 import { getEvents, updateEvent } from '../Event/functions'
 import 'dotenv/config'
 
@@ -36,8 +38,25 @@ export default function Agenda() {
     setSession({
       ...session,
       showEvent: true,
-      currentEvent: null,
-      currentEventName: '',
+      currentEvent: {
+        id: null,
+        title: '',
+        start: event.date,
+        end: addMinutes(event.date, 60),
+      },
+    })
+  }
+
+  function handleSelectClick(event) {
+    setSession({
+      ...session,
+      showEvent: true,
+      currentEvent: {
+        id: null,
+        title: '',
+        start: event.start,
+        end: event.end,
+      },
     })
   }
 
@@ -45,15 +64,50 @@ export default function Agenda() {
     await setSession({
       ...session,
       showEvent: true,
-      currentEvent: eventClicked.event.id,
-      currentEventName: eventClicked.event.title,
+      currentEvent: {
+        id: eventClicked.event.id,
+        title: eventClicked.event.title,
+        start: eventClicked.event.start,
+        end: eventClicked.event.end,
+      },
     })
   }
 
   function handleRenderEvent(info) {
-    if (session.currentEvent && info.event.id !== session.currentEvent) {
+    if (session.currentEvent && info.event.id !== session.currentEvent.id) {
       info.el.style.cssText += 'opacity: 0.3;'
     }
+  }
+
+  async function handleEventDrop(e) {
+    if (session.currentEvent) {
+      const nextEvent = produce(session.currentEvent, draft => {
+        draft.start = e.event.start
+        draft.end = e.event.end
+      })
+
+      setSession({
+        ...session,
+        currentEvent: nextEvent,
+      })
+    }
+
+    await updateEvent(e.event)
+  }
+
+  async function handleEventResize(e) {
+    if (session.currentEvent) {
+      const nextEvent = produce(session.currentEvent, draft => {
+        draft.end = e.event.end
+      })
+
+      setSession({
+        ...session,
+        currentEvent: nextEvent,
+      })
+    }
+
+    await updateEvent(e.event)
   }
 
   return (
@@ -62,10 +116,10 @@ export default function Agenda() {
         ref={calendarRef}
         events={getEvents}
         eventClick={handleEventClick}
+        select={event => handleSelectClick(event)}
         dateClick={event => handleDateClick(event)}
-        select={event => handleDateClick(event)}
-        eventDrop={event => updateEvent(event)}
-        eventResize={event => updateEvent(event)}
+        eventDrop={event => handleEventDrop(event)}
+        eventResize={event => handleEventResize(event)}
         id="fullCalendar"
         defaultView="timeGridWeek"
         plugins={[
