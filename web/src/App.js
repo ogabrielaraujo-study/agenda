@@ -16,7 +16,7 @@ export default function App() {
         <Routes />
 
         <GlobalStyle />
-        <ToastContainer autoClose={3000} />
+        <ToastContainer position="bottom-right" autoClose={3000} />
       </Router>
     </Provider>
   )

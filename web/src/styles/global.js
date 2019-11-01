@@ -84,12 +84,13 @@ export default createGlobalStyle`
 
   /* toastify */
   #root .Toastify__toast {
-    border-radius: 8px;
-    font: 14px 'Roboto', sans-serif;
-    padding: 8px 12px;
+    border-radius: 10px;
+    font: 14px 'Nunito', sans-serif;
+    padding: 10px 15px;
+    box-shadow: 0 3px 13px 0 rgba(0, 0, 0, 0.4);
 
     &.Toastify__toast--success {
-      background: #0eb942;
+      background: #0b9c37;
     }
 
     &.Toastify__toast--error {
