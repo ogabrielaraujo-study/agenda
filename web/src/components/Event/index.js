@@ -87,7 +87,6 @@ export default function Event() {
   async function handleDelete() {
     await deleteEvent(session.currentEvent.id)
 
-    // calendarRef.current.getApi().refetchEvents()
     toast.success('Evento deletado com sucesso!')
 
     setSession({
@@ -96,40 +95,6 @@ export default function Event() {
       currentEvent: null,
     })
   }
-
-  /*async function handleEvent(e) {
-    e.preventDefault()
-
-    if (
-      currentEvent.event !== undefined &&
-      currentEvent.event.title === eventName
-    ) {
-      setSession({
-        ...session,
-        showEvent: false,
-      })
-      setEventName('')
-      setCurrentEvent(null)
-      return
-    }
-
-    if (eventName.length < 3) {
-      toast.error('Evento deve ter pelo menos 3 caracteres')
-      return
-    }
-
-    await createEvent(eventName, currentEvent)
-
-    toast.success('Evento foi salvo com sucesso!')
-
-
-    setSession({
-      ...session,
-      showEvent: false,
-    })
-    setEventName('')
-    setCurrentEvent(null)
-  }*/
 
   return (
     <Container show={session.showEvent}>
@@ -141,8 +106,6 @@ export default function Event() {
           <FiTrash size={18} />
         </button>
       </div>
-
-      {/* DATEPICKER */}
 
       <Form.Group>
         <Form.Label>Nome</Form.Label>
