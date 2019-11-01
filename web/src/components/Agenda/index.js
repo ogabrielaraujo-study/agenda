@@ -64,7 +64,6 @@ export default function Agenda() {
   }
 
   async function handleEventClick(eventClicked) {
-    console.log(eventClicked)
     await setSession({
       ...session,
       showEvent: true,
@@ -91,8 +90,6 @@ export default function Agenda() {
         draft.start = e.event.start
         draft.end = e.event.end
       })
-
-      console.log(nextEvent)
 
       setSession({
         ...session,

@@ -54,7 +54,6 @@ export default function Tag() {
   function handleChangeColor(color) {
     setColorPicker(false)
     setTagColor(color.hex)
-    console.log(color.hex)
   }
 
   return (
