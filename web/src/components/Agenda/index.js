@@ -172,8 +172,9 @@ export default function Agenda() {
         slotDuration="01:00"
         slotLabelInterval="01:00"
         slotLabelFormat={{
-          hour: 'numeric',
+          hour: '2-digit',
           minute: '2-digit',
+          omitZeroMinute: false,
         }}
         buttonText={{
           next: 'Próximo',

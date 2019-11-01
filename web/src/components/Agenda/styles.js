@@ -17,6 +17,12 @@ export const Container = styled.div`
     font-weight: bold;
   }
 
+  .fc-axis {
+    span {
+      font-size: 13px;
+    }
+  }
+
   .fc-bootstrap .fc-event {
     box-shadow: 0px 5px 15px rgba(69, 69, 69, 0.15);
     padding: 4px;
