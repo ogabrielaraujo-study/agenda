@@ -14,7 +14,7 @@
     "start": "node server.js",
     "dev": "adonis serve --dev",
     "test": "node ace test",
-    "build": "adonis migration:run",
+    "build": "adonis migration:run --force",
     "up": "pm2 start server.js --name agenda_node",
     "up:dev": "pm2 start server.js --name agenda_node --watch",
     "down": "pm2 del agenda_node"
