@@ -1,6 +1,7 @@
 # Agenda
 
-Agenda - Realtime com NodeJs, ReactJS e Postgres
+Organize seu dia a dia e nunca mais esqueça seus compromissos.
+Entre e aumente sua produtividade agora mesmo!
 
 [ACESSAR DEMO](https://agenda.ogabrielaraujo.com.br)
 

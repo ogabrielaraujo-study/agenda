@@ -92,6 +92,8 @@ export default function Agenda() {
         draft.end = e.event.end
       })
 
+      console.log(nextEvent)
+
       setSession({
         ...session,
         currentEvent: nextEvent,

@@ -41,7 +41,7 @@ class EventController {
     event.title = data.title || event.title
     event.start = data.start || event.start
     event.end = data.end || event.end
-    event.tag_id = data.tag_id ? data.tag_id : null
+    event.tag_id = data.tag_id || event.tag_id
     event.description = data.description || event.description
 
     await event.save()

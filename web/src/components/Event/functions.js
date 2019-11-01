@@ -33,7 +33,7 @@ export async function updateEvent(data) {
     start: data.start,
     end: data.end,
     title: data.title,
-    tag_id: data.tag_id ? data.tag_id : null,
+    tag_id: data.tag_id,
     description: data.description,
   })
 }
