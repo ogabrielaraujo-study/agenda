@@ -116,7 +116,9 @@ export default function Agenda() {
   }
 
   function handleGetEvents(req) {
-    return getEvents(req.startStr, req.endStr)
+    const start = req.startStr.slice(0, -6)
+    const end = req.endStr.slice(0, -6)
+    return getEvents(start, end)
   }
 
   return (
