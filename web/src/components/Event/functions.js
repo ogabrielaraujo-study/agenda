@@ -6,8 +6,13 @@ export function formatDateTime(dateTime) {
   return format(new Date(dateTime), "Y-M-dd'T'HH:mm", { locale: pt })
 }
 
-export async function getEvents() {
-  const events = await api.get('events')
+export async function getEvents(start, end) {
+  const events = await api.get('events', {
+    params: {
+      start,
+      end,
+    },
+  })
 
   const newEvents = events.data.map(event => ({
     ...event,

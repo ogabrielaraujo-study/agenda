@@ -3,12 +3,23 @@
 const Event = use('App/Models/Event')
 
 class EventController {
-  async index({ auth }) {
+  async index({ request, auth }) {
+    const between = request.only(['start', 'end'])
+
+    if (between.start && between.end) {
+      return await Event.query()
+        .with('tag')
+        .where('start', '>=', between.start + '.000Z')
+        .where('start', '<', between.end + '.000Z')
+        .orderBy('start', 'asc')
+        .fetch()
+    }
+
     return await Event.query()
       .with('tag')
       .where('is_active', 1)
       .where('user_id', auth.user.id)
-      .orderBy('id', 'asc')
+      .orderBy('start', 'asc')
       .fetch()
   }
 

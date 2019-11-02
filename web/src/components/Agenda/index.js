@@ -31,9 +31,9 @@ export default function Agenda() {
     }
   }, [])
 
-  useEffect(() => {
+  /* useEffect(() => {
     calendarRef.current.getApi().refetchEvents()
-  }, [session.showEvent])
+  }, [session.showEvent]) */
 
   function handleDateClick(event) {
     setSession({
@@ -115,11 +115,15 @@ export default function Agenda() {
     await updateEvent(e.event)
   }
 
+  function handleGetEvents(req) {
+    return getEvents(req.startStr, req.endStr)
+  }
+
   return (
     <Container id="agenda">
       <FullCalendar
         ref={calendarRef}
-        events={getEvents}
+        events={event => handleGetEvents(event)}
         eventClick={handleEventClick}
         select={event => handleSelectClick(event)}
         dateClick={event => handleDateClick(event)}
