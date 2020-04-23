@@ -24,8 +24,7 @@ Agenda para organização pessoal de eventos de forma intuitiva.
 
 - [x] Login Social (Google)
 - [x] Visualização de Agenda por dia, semana, 4 dias e mês
-- [x] Cadastrar eventos
-- [x] Alterar eventos
+- [x] Gerenciar eventos
 - [x] [Lottiefile](https://lottiefiles.com/433-checked-done)
 
 ## Tutorial
