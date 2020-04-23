@@ -4,8 +4,8 @@
 </h1>
 
 <p align="center">
-Organize seu dia a dia e nunca mais esqueça seus compromissos.
 Agenda para organização pessoal de eventos de forma intuitiva.
+<br>Organize seu dia a dia e nunca mais esqueça seus compromissos.
 </p>
 
 ![Agenda Preview](https://i.imgur.com/jG6XMZK.gif)
