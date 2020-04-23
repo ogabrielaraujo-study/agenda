@@ -1,13 +1,16 @@
-# Agenda
+<h1 align="center">
+  <br>
+  Agenda
+</h1>
 
+<p align="center">
 Organize seu dia a dia e nunca mais esqueça seus compromissos.
-Entre e aumente sua produtividade agora mesmo!
-
-[ACESSAR DEMO](https://agenda.ogabrielaraujo.com.br)
+Agenda para organização pessoal de eventos de forma intuitiva.
+</p>
 
 ![Agenda Preview](https://i.imgur.com/jG6XMZK.gif)
 
-### Tecnologias
+## Tecnologias
 
 - [x] [NodeJs](https://nodejs.org/en/)
 - [x] [ReactJs](https://pt-br.reactjs.org/)
@@ -16,20 +19,23 @@ Entre e aumente sua produtividade agora mesmo!
 - [x] [adonis](https://adonisjs.com/)
 - [x] [FullCalendar](https://github.com/fullcalendar/fullcalendar)
 - [x] [Lottie](https://airbnb.io/lottie/)
-  - LottieFile: https://lottiefiles.com/433-checked-done
+  
+## Features
 
-### Como usar?
+- [x] Login Social (Google)
+- [x] Visualização de Agenda por dia, semana, 4 dias e mês
+- [x] Cadastrar eventos
+- [x] Alterar eventos
+- [x] [Lottiefile](https://lottiefiles.com/433-checked-done)
 
-##### Front-end
+## Tutorial
 
-```
-yarn install
-yarn start
-```
+**Web**
 
-##### API
+1. `yarn install`
+2. `yarn start`
 
-```
-yarn install
-yarn start
-```
+**API**
+
+1. `yarn install`
+2. `yarn start`
