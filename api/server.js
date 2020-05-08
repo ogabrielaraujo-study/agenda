@@ -1,7 +1,7 @@
 const { Ignitor } = require('@adonisjs/ignitor')
 const https = require('https')
 const fs = require('fs')
-require('dotenv').config({ path: __dirname + '/.env' })
+require('dotenv').config()
 
 // Certificate
 if (process.env.NODE_ENV == 'production') {
