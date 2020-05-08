@@ -1,7 +1,7 @@
 const { Ignitor } = require('@adonisjs/ignitor')
 const https = require('https')
 const fs = require('fs')
-require('dotenv').config()
+require('dotenv').config({ path: __dirname + '/.env' })
 
 // Certificate
 if (process.env.NODE_ENV == 'production') {
@@ -12,7 +12,7 @@ if (process.env.NODE_ENV == 'production') {
 
   new Ignitor(require('@adonisjs/fold'))
     .appRoot(__dirname)
-    .fireHttpServer(handler => {
+    .fireHttpServer((handler) => {
       return https.createServer(options, handler)
     })
     .catch(console.error)
