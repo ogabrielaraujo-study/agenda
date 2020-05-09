@@ -14,7 +14,6 @@
     "start": "node server.js",
     "dev": "adonis serve --dev",
     "test": "node ace test",
-    "prebuild": "adonis migration:run --force",
     "build": "node server.js",
     "postbuild": "echo API ONLINE",
     "up": "pm2 start server.js --name agenda_node",
