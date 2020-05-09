@@ -33,7 +33,8 @@
     "@adonisjs/ignitor": "^2.0.8",
     "@adonisjs/lucid": "^6.1.3",
     "dotenv": "^8.2.0",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "url-parse": "^1.4.7"
   },
   "devDependencies": {
     "sqlite3": "^4.1.0"
