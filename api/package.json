@@ -35,9 +35,6 @@
     "pg": "^7.12.1",
     "url-parse": "^1.4.7"
   },
-  "devDependencies": {
-    "sqlite3": "^4.1.0"
-  },
   "autoload": {
     "App": "./app"
   },
